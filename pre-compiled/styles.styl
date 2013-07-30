@@ -1,0 +1,129 @@
+/*
+
+  For main Hero carousel
+  23 July 2013
+
+*/
+.hero-carousel
+  width 300px
+  padding-bottom 10px
+  overflow hidden
+.hero-reel
+  width 620px * 4
+  display none
+  margin-left 0
+
+  .article
+    width 300px
+    position relative
+    float left
+    margin-bottom 0
+    img
+      margin-bottom 0
+    a
+      display block
+      text-decoration none
+      &:hover
+        .h1
+          text-decoration underline
+    .h1
+      font-size 18px
+      position absolute
+      max-height 64px
+      overflow hidden
+      z-index 1
+      bottom 0
+      padding 10px
+      width 100%
+      box-sizing border-box
+      background rgba(0,0,0,0.6)
+      color white
+.hero-sub
+  clear both
+.hero-thumb
+  position relative
+  margin-top 10px
+  opacity 0.5
+  width 72px
+  height 30px
+  padding-left 4px
+  &:first-child
+    padding-left 0
+  a
+    display block
+  &:hover
+    opacity 0.65
+  &.active
+    opacity 1
+    .reel-timer
+      visibility visible
+  .meta
+    display none
+
+
+// TIMER
+.reel-timer
+  width 100%
+  background #afdef8
+  height 3px
+  margin-bottom 1px
+  visibility hidden
+  position relative
+  &:before
+    content ''
+    position absolute
+    left 50%
+    margin-left -6px
+    bottom 100%
+    width 0px
+    height 0px
+    border-style solid
+    border-width 0 6px 5px 6px
+    border-color transparent transparent #afdef8 transparent
+  .reel-timer-overlay
+    position absolute
+    width 0
+    height 3px
+    background #214b71
+    &.animating
+      width 100% !important
+      transition width 4s linear
+    &.full
+      transition none
+      width 0% !important
+
+
+@media $b1
+  .hero-carousel
+    width 620px
+  .hero-reel
+    .article
+      width 620px
+      img
+        margin-bottom 12px
+      .h1
+        max-height 72px
+        font-size 30px
+        line-height 1.2
+        position static
+        bottom 0
+        padding 0
+        box-sizing content-box
+        background transparent
+        color $colorLink
+
+      .meta
+        margin-top 5px
+        margin-bottom 2px
+        a
+          display inline
+  .hero-thumb
+    width 150px
+    padding 0
+    margin-left 6px
+    height auto
+    &:first-child
+      margin-left 0
+    .h4
+      max-height 55px
+      overflow hidden

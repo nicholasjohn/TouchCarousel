@@ -1,0 +1,41 @@
+.hero-item {
+  width: 620px;
+}
+.hero-carousel {
+  position: relative;
+  padding-bottom: 20px;
+}
+.hero-carousel {
+  width: 620px;
+}
+.hero-reel .article {
+  width: 620px;
+}
+.hero-reel .article img {
+  margin-bottom: 12px;
+}
+.hero-reel .article .h1 {
+  font-size: 30px;
+  line-height: 1.2;
+  position: static;
+  bottom: 0;
+  padding: 0;
+  box-sizing: content-box;
+  background: transparent;
+  color: $colorLink;
+}
+.hero-reel .article .meta {
+  margin-top: 12px;
+}
+.hero-reel .article .meta a {
+  display: inline;
+}
+.hero-thumb {
+  width: 150px;
+  padding: 0;
+  margin-left: 6px;
+  height: auto;
+}
+.hero-thumb:first-child {
+  margin-left: 0;
+}
