@@ -12,8 +12,8 @@
 
 
   // Carousel setup
-  var $heroReel = $('.js-hero-reel')
-  $('.js-hero-carousel .hero-tab').each(function(i,v){
+  var $heroReel = $('.js-touch-reel')
+  $('.js-touch-carousel .touch-tab').each(function(i,v){
     var $currentSlideimg = $(this).find('img')
       , $a   = $(this).children('a')
       , $h   = $(this).find('h3')
@@ -37,7 +37,7 @@
     // Normal: #3a73a6
     var $timerOverlay = $('<div>').addClass('reel-timer-overlay js-reel-timer-overlay')
       , $timerDiv = $('<div>').addClass('reel-timer').append($timerOverlay)
-    $(this).addClass('js-hero-tab').attr('data-slide',(i+1)).prepend($timerDiv)
+    $(this).addClass('js-touch-tab').attr('data-slide',(i+1)).prepend($timerDiv)
 
   })
 
@@ -51,11 +51,11 @@
 
 
   // This function either gets the new margin-left
-  // position of the .hero-reel for a $slideNum provided,
+  // position of the .touch-reel for a $slideNum provided,
   // or will 'fix' a broken position to the $currentSlide
   function updateMargin($slideNum){
     var $m = ($slideNum===1)?0:($slideNum-1)
-      , $newMargin = -( $m * $('.js-hero-item').width())
+      , $newMargin = -( $m * $('.js-touch-item').width())
     $heroReel.stop().animate({'margin-left' : $newMargin}, $transitionDuration, $easing)
   }
 
@@ -63,9 +63,9 @@
   function goToSlide($slideNum){
     //console.log('goToSlide('+$slideNum+') called')
 
-    $('.hero-tab.active').removeClass('active')
+    $('.touch-tab.active').removeClass('active')
     $('.animating').removeClass('animating')
-    $('.hero-tab[data-slide="'+$slideNum+'"]').addClass('active').find('.js-reel-timer-overlay').addClass('animating')
+    $('.touch-tab[data-slide="'+$slideNum+'"]').addClass('active').find('.js-reel-timer-overlay').addClass('animating')
     //.css({'-webkit-transition-duration':$slideDuration+'ms'})
     updateMargin($slideNum)
 
@@ -119,7 +119,7 @@
 
 
   // Deals with hovers on the .sub-menu
-  $('.js-hero-tab').hover(function(){
+  $('.js-touch-tab').hover(function(){
     clearTimeout($timeOut)
     goToSlide($(this).data('slide'))
 
@@ -160,7 +160,7 @@
   */
   $(window)
   .on('exit.two-col enter.two-col', function () {
-    $subWidth = $('.js-hero-carousel .hero-tab:first-child').width()
+    $subWidth = $('.js-touch-carousel .touch-tab:first-child').width()
     //console.log('updating')
     updateMargin()
   })
@@ -218,7 +218,7 @@
         if( $heroMargin >= 0 ){
           // Carousel is left of first item
           $heroReel.css({'margin-left': $marginLeftMove * 0.2 })
-        }else if( $heroMargin <= -($('.js-hero-item').width()*3) ){
+        }else if( $heroMargin <= -($('.js-touch-item').width()*3) ){
           // Carousel is right of last item
 
           $heroReel.css({'margin-left': parseInt($initialPosition,10) + ($changeX*0.2) })
@@ -227,7 +227,7 @@
         }
 
         // add active state
-        $('.js-hero-tab.active').find('.js-reel-timer-overlay').removeClass('animating').addClass('full')
+        $('.js-touch-tab.active').find('.js-reel-timer-overlay').removeClass('animating').addClass('full')
 
       } else {
         // A vertical movement, so let the
@@ -245,7 +245,7 @@
       $(this).off('touchend')
       $(this).off('touchmove')
 
-      $('.js-hero-tab.active').find('.full').removeClass('full').width(0).addClass('animating')
+      $('.js-touch-tab.active').find('.full').removeClass('full').width(0).addClass('animating')
 
       $isPaused = false
 

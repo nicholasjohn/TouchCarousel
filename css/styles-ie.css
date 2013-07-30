@@ -1,20 +1,20 @@
-.hero-item {
+.touch-item {
   width: 620px;
 }
-.hero-carousel {
+.touch-carousel {
   position: relative;
   padding-bottom: 20px;
 }
-.hero-carousel {
+.touch-carousel {
   width: 620px;
 }
-.hero-reel .article {
+.touch-reel .article {
   width: 620px;
 }
-.hero-reel .article img {
+.touch-reel .article img {
   margin-bottom: 12px;
 }
-.hero-reel .article .h1 {
+.touch-reel .article .h1 {
   font-size: 30px;
   line-height: 1.2;
   position: static;
@@ -24,18 +24,18 @@
   background: transparent;
   color: $colorLink;
 }
-.hero-reel .article .meta {
+.touch-reel .article .meta {
   margin-top: 12px;
 }
-.hero-reel .article .meta a {
+.touch-reel .article .meta a {
   display: inline;
 }
-.hero-tab {
+.touch-tab {
   width: 150px;
   padding: 0;
   margin-left: 6px;
   height: auto;
 }
-.hero-tab:first-child {
+.touch-tab:first-child {
   margin-left: 0;
 }
