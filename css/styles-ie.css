@@ -30,12 +30,12 @@
 .hero-reel .article .meta a {
   display: inline;
 }
-.hero-thumb {
+.hero-tab {
   width: 150px;
   padding: 0;
   margin-left: 6px;
   height: auto;
 }
-.hero-thumb:first-child {
+.hero-tab:first-child {
   margin-left: 0;
 }
