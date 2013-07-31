@@ -4,32 +4,31 @@
   23 July 2013
 
 */
+
 .touch-carousel {
-  width: 620px;
   overflow: hidden;
 }
 .touch-reel {
-  width: 2480px;
   display: none;
   margin-left: 0;
 }
   .touch-reel .article {
-    width: 620px;
     position: relative;
     float: left;
     margin-bottom: 0;
   }
+    .touch-reel .article img {
+      width: 100%;
+    }
     .touch-reel .article a {
       display: block;
       text-decoration: none;
-      outline: 0;
     }
       .touch-reel .article a:hover .h1 {
         text-decoration: underline;
       }
     .touch-reel .article .h1 {
       z-index: 1;
-      padding: 10px;
       width: 100%;
       font-size: 30px;
       position: static;
@@ -40,6 +39,7 @@
       .touch-reel .article .meta a {
         display: inline;
       }
+
 .touch-tabs {
   clear: both;
 }
@@ -47,9 +47,8 @@
   float: left;
   position: relative;
   opacity: 0.5;
-  width: 150px;
   padding: 0;
-  margin-left: 6px;
+  width: 25%;
   height: auto;
 }
   .touch-tab:first-child {
@@ -59,7 +58,17 @@
   .touch-tab a {
     display: block;
     text-decoration: none;
-    outline: 0;
+  }
+  .touch-tab h1 {
+    margin-bottom: 10px;
+  }
+  .touch-tab img {
+    width: 100%;
+    height: auto;
+  }
+  .touch-reel .meta {
+    margin-top: 5px;
+    margin-bottom: 20px;
   }
   .touch-tab:hover {
     opacity: 0.65;
@@ -84,8 +93,8 @@
     left: 50%;
     margin-left: -6px;
     bottom: 100%;
-    width: 0px;
-    height: 0px;
+    width: 0;
+    height: 0;
     border-style: solid;
     border-width: 0 6px 5px 6px;
     border-color: transparent transparent #aaa transparent;

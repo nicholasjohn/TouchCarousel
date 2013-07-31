@@ -1,18 +1,32 @@
 (function () {
   /*
     Extension: HeroCarousel
+    Built by: Nick Price
   */
 
   // Public variables
   var $slideDuration = 4000 // In milliseconds
     , $transitionDuration = 250 // In milliseconds
     , $easing = 'swing' // 'swing' or 'linear'
-    , $numArticles = 4
+    , $numArticles = $('.touch-tab').length
+    , $width = '100%' // Width in pixels
 
 
+  if($width == '100%'){
+    $('.js-touch-carousel').css('width','100%')
+    $width = $('.js-touch-carousel').width()
+  }else{
+    $width = parseInt($width,10) // Strip units should the user enter 'px'
+    $('.js-touch-carousel').width($width)
+  }
 
   // Carousel setup
-  var $heroReel = $('.js-touch-reel')
+  var $touchReel = $('<div class="touch-reel js-touch-reel" />').width($numArticles*$width)
+    , $touchItem = $('<div class="touch-item js-touch-item" />').append($touchReel)
+
+  $('.js-touch-carousel').prepend($touchItem)
+  $('.js-touch-carousel .touch-tab').wrapAll('<div class="touch-tabs js-touch-tabs" />')
+
   $('.js-touch-carousel .touch-tab').each(function(i,v){
     var $currentSlideimg = $(this).find('img')
       , $a   = $(this).children('a')
@@ -27,10 +41,10 @@
       , $newA = $('<a>').attr({
         href: $a.attr('href')
       }).append($newImg).append($newH)
-      , $newItem = $('<div>').addClass('article').append($newA).append($meta) // New hero item
+      , $newItem = $('<div>').width($width).addClass('article').append($newA).append($meta) // New hero item
 
 
-    $heroReel.append($newItem)
+    $touchReel.append($newItem)
 
     // TIMERS
     // Active: #214b71
@@ -54,9 +68,10 @@
   // position of the .touch-reel for a $slideNum provided,
   // or will 'fix' a broken position to the $currentSlide
   function updateMargin($slideNum){
+    console.log($slideNum)
     var $m = ($slideNum===1)?0:($slideNum-1)
       , $newMargin = -( $m * $('.js-touch-item').width())
-    $heroReel.stop().animate({'margin-left' : $newMargin}, $transitionDuration, $easing)
+    $touchReel.stop().animate({'margin-left' : $newMargin}, $transitionDuration, $easing)
   }
 
   // This function calls a slide to be moved to
@@ -144,7 +159,7 @@
 
 
   // Initiate
-  $heroReel.show(0,function(){
+  $touchReel.show(0,function(){
     $('.js-reel-timer-overlay:first-of-type').width(0)
     setTimeout(nextSlide,50)
   })
@@ -162,7 +177,13 @@
   .on('exit.two-col enter.two-col', function () {
     $subWidth = $('.js-touch-carousel .touch-tab:first-child').width()
     //console.log('updating')
-    updateMargin()
+    updateMargin($currentSlide)
+  })
+  .on('resize', function(){
+    $width = $('.js-touch-carousel').width()
+    $('.js-touch-reel').width($numArticles*$width)
+    $('.js-touch-reel .article').width($width)
+    updateMargin($currentSlide)
   })
 
 
@@ -190,10 +211,10 @@
     , $falseSwipe = false
     , $moving = false
 
-  $heroReel.on('touchstart', function(e){
+  $touchReel.on('touchstart', function(e){
     $isPaused = true
 
-    $initialPosition = $heroReel.css('margin-left')
+    $initialPosition = $touchReel.css('margin-left')
 
     $initialX = e.originalEvent.touches[0].pageX
     $initialY = e.originalEvent.touches[0].pageY
@@ -213,17 +234,17 @@
         $changeX = $currentX - $initialX
         $marginLeftMove = parseInt($initialPosition,10) + $changeX
 
-        $heroMargin = parseInt($heroReel.css('margin-left'),10)
+        $heroMargin = parseInt($touchReel.css('margin-left'),10)
 
         if( $heroMargin >= 0 ){
           // Carousel is left of first item
-          $heroReel.css({'margin-left': $marginLeftMove * 0.2 })
+          $touchReel.css({'margin-left': $marginLeftMove * 0.2 })
         }else if( $heroMargin <= -($('.js-touch-item').width()*3) ){
           // Carousel is right of last item
 
-          $heroReel.css({'margin-left': parseInt($initialPosition,10) + ($changeX*0.2) })
+          $touchReel.css({'margin-left': parseInt($initialPosition,10) + ($changeX*0.2) })
         }else{
-          $heroReel.css({'margin-left': $marginLeftMove })
+          $touchReel.css({'margin-left': $marginLeftMove })
         }
 
         // add active state
@@ -250,7 +271,7 @@
       $isPaused = false
 
       if(Math.abs($changeX) < 100 || $falseSwipe === true){
-        $heroReel.animate({'margin-left': $initialPosition})
+        $touchReel.animate({'margin-left': $initialPosition})
         $falseSwipe = false
         //console.log('null swipe')
       }else{

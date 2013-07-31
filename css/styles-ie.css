@@ -8,13 +8,13 @@
 .touch-carousel {
   width: 620px;
 }
-.touch-reel .article {
+.touch-reel article {
   width: 620px;
 }
-.touch-reel .article img {
+.touch-reel article img {
   margin-bottom: 12px;
 }
-.touch-reel .article .h1 {
+.touch-reel article .h1 {
   font-size: 30px;
   line-height: 1.2;
   position: static;
@@ -24,10 +24,10 @@
   background: transparent;
   color: $colorLink;
 }
-.touch-reel .article .meta {
+.touch-reel article .meta {
   margin-top: 12px;
 }
-.touch-reel .article .meta a {
+.touch-reel article .meta a {
   display: inline;
 }
 .touch-tab {
