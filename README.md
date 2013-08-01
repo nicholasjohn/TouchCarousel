@@ -1,43 +1,102 @@
-# TOUCH CAROUSEL
-A jQuery Carousel plugin with touch/swipe features.
-
+# Touch Carousel
+A flexible jQuery Carousel plugin with touch/swipe features.
 
 ## Example
 You can see a working example at http://jsbin.com/azapol/latest/edit/
 
-
 ## Usage
 
-Any element can have the *.touchCarousel()* method called on it, with a variety of optional settings being set.
+Any element can have the `.touchCarousel()` method called on it, with a variety of optional settings being set.
 The method call and full list of settings can be seen below:
 
 ```javascript
 var touchCarousel = $('.touch-carousel').touchCarousel(
   {
-    slideDuration: 4000 // In milliseconds
-  , transitionDuration: 250 // In milliseconds
-  , easing: 'swing' // 'swing' or 'linear'
-  , width: '100%' // Width in pixels
+    slideDuration: 4000 // How long an item is shown before going to the next item (milliseconds)
+  , transitionDuration: 250 // The length of sliding transition (milliseconds)
+  , easing: 'swing' // Currently 'swing' or 'linear'
+  , width: '100%' // Width in pixels or '100%' for flexible
   }
 )
 ```
 
-The element must contain a set of elements of class *.touch-tab* within it, which will become the 'tabs'. The minimal structure for each of these elements is below:
+
+### Basic
+
+The most basic format of the carousel can make plain images into a slider.
+
+_Note: all `<img>` tags can have a `data-carousel` attribute for an alternative image as the matching carousel item_
 
 ```html
-<element class='touch-tab'>
-  <a href='#'>
-    <img src='http://dummyimage.com/194x109' alt='Image Description' width='150' height='84' data-carousel='http://dummyimage.com/800x373/999/fff/&text=Hero 1'>
-  </a>
-</element>
+<div class='touch-carousel'>
+
+  <img src='smallImage1.jpg' data-carousel='largeImage1.jpg' alt='alt' width='150' height='100' />
+  <img src='smallImage2.jpg' data-carousel='largeImage2.jpg' alt='alt' width='150' height='100' />
+
+</div>
 ```
+
+
+### Linking Images
+
+Carousel items and tabs can link by wrapping the `<img>` tags within an `<a href='#'>` tag:
+
+```html
+<div class='touch-carousel'>
+
+  <a href='#'>
+    <img src='smallImage1.jpg' data-carousel='largeImage1.jpg' alt='alt' width='150' height='100' />
+  </a>
+  
+  <a href='#'>
+    <img src='smallImage2.jpg' data-carousel='largeImage2.jpg' alt='alt' width='150' height='100' />
+  </a>
+
+</div>
+```
+
+
+### Complex Implementation
+You can also add custom elements with a more complex structure:
+
+* Each tab should have a class of `.touch-tab`
+* If the item should link, nest within an `<a>` tag
+* Titles should have a class of `.article-title`
+* Meta data should have a class of `.meta` - any tags inside will be duplicated below the title in the main item
+
+In the following example, the `.meta` is being used to show a datetime, for example on a news slider:
+
+```html
+<div class='touch-carousel'>
+  
+  <article class='touch-tab'> <!-- Container for each item -->
+  
+    <a href='http://google.co.uk'> <!-- The link of item -->
+      <img src='smallImage1.jpg' data-carousel='largeImage1.jpg' alt='alt' width='150' height='100' />
+      <h3 class='article-title'>Item title</h3>
+    </a>
+    
+    <div class='meta'> <!-- Meta content to be displayed outside the main item's link -->
+      <span class='date-published'>Weds 8 August 2012. Last updated: 1.16AM</span>
+    </div>
+    
+  </article>
+
+</div>
+```
+
+
+
+
+
 
 
 ## Update Log
 - [x] Conversion to plugin
 - [x] Extend plugin functions
-- [ ] Remove necessity for <a> tag within tabs
-- [ ] Transition-duration of <strong>.reel-timer</strong> to take main timer setting
+- [x] Header works off class, not <h> tag
+- [ ] Remove necessity for `<a>` tag within tabs
+- [ ] Transition-duration of `.reel-timer` to take main timer setting
 
 
 ##Project Files
