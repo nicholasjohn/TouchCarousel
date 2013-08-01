@@ -225,13 +225,13 @@
     .on('exit.two-col enter.two-col', function () {
       $subWidth = $('.tc-root .tc-tab:first-child').width()
       //console.log('updating')
-      this.updateMargin($currentSlide)
+      $this.updateMargin($currentSlide)
     })
     .on('resize', function(){
       $width = this.width()
       $('.js-tc-reel').width($numArticles*$width)
       $('.js-tc-reel .article').width($width)
-      this.updateMargin($currentSlide)
+      $this.updateMargin($currentSlide)
     })
 
 
