@@ -1,20 +1,16 @@
-.touch-item {
-  width: 620px;
-}
-.touch-carousel {
+.tc-carousel {
   position: relative;
   padding-bottom: 20px;
-}
-.touch-carousel {
   width: 620px;
 }
-.touch-reel article {
+
+.tc-hero-reel article {
   width: 620px;
 }
-.touch-reel article img {
+.tc-hero-reel img {
   margin-bottom: 12px;
 }
-.touch-reel article .h1 {
+.tc-hero-reel h1 {
   font-size: 30px;
   line-height: 1.2;
   position: static;
@@ -24,18 +20,12 @@
   background: transparent;
   color: $colorLink;
 }
-.touch-reel article .meta {
-  margin-top: 12px;
-}
-.touch-reel article .meta a {
-  display: inline;
-}
-.touch-tab {
+.tc-tab {
   width: 150px;
   padding: 0;
   margin-left: 6px;
   height: auto;
 }
-.touch-tab:first-child {
+.tc-tab:first-child {
   margin-left: 0;
 }

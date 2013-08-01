@@ -1,80 +1,60 @@
 /*
 
-  For main Hero carousel
-  23 July 2013
+  - TouchCarousel
+  - Nick Price
+  - Last edited: 01/08/13
 
 */
 
 .tc-root {
   overflow: hidden;
+  max-width: 900px;
 }
-.tc-item {
+.tc-hero-wrapper {
   float: left;
   width: 100%;
 }
-.tc-reel {
-  display: none;
+.tc-hero-reel {
   margin-left: 0;
 }
-  .tc-reel .article {
+  .tc-hero-item {
     position: relative;
     float: left;
-    margin-bottom: 0;
-  }
-  .tc-reel img {
-    width: auto;
-    height: auto;
-    max-width: 100%;
-  }
-  .tc-reel .tc-hero {
     display: block;
-    text-decoration: none;
   }
+    .tc-hero-item img {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+    }
 
 .tc-tabs {
   clear: both;
   float: left;
   width: 100%;
   padding: 0;
-}
-.tc-tab {
-  float: left;
-  position: relative;
-  opacity: 0.5;
-  padding: 0;
-  width: 25%;
-  height: auto;
-  list-style: none;
   margin: 0;
 }
-  .tc-tab:first-child {
-    padding-left: 0;
-    margin-left: 0;
-  }
-  .tc-tab a {
-    display: block;
-    text-decoration: none;
-  }
-  .tc-tab h1 {
-    margin-bottom: 10px;
-  }
-  .tc-tab img {
-    width: 100%;
+  .tc-tab {
+    float: left;
+    opacity: 0.5;
+    padding: 0;
+    margin: 0;
+    width: 25%;
     height: auto;
+    list-style: none;
   }
-  .tc-reel .meta {
-    margin-top: 5px;
-    margin-bottom: 20px;
-  }
-  .tc-tab:hover {
-    opacity: 0.65;
-  }
-  .tc-tab.active {
-    opacity: 1;
-  }
-    .tc-tab.active .reel-timer {
-      visibility: visible;
+    .tc-tab:hover {
+      opacity: 0.65;
     }
+    .tc-tab.active {
+      opacity: 1;
+    }
+    .tc-tab img {
+      width: auto;
+      max-width: 100%;
+    }
+  
 .reel-timer {
   width: 100%;
   background: #aaa;
@@ -83,6 +63,9 @@
   visibility: hidden;
   position: relative;
 }
+  .tc-tab.active .reel-timer {
+    visibility: visible;
+  }
   .reel-timer:before {
     content: "";
     position: absolute;
@@ -93,7 +76,8 @@
     height: 0;
     border-style: solid;
     border-width: 0 6px 5px 6px;
-    border-color: transparent transparent #aaa transparent;
+    border-color: transparent;
+    border-color-bottom: #aaa;
   }
   .reel-timer .reel-timer-overlay {
     position: absolute;

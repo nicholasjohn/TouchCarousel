@@ -18,6 +18,8 @@
       , easing: 'swing'
       , width: '100%'
       , autoResizeTabs: true
+      , showTimers: true
+      , showTabs: true
     }, options )
 
     // Public variables
@@ -27,6 +29,15 @@
       , $width = settings.width // Width in pixels
 
 
+
+
+
+
+    /******************
+
+        DOM SETUP
+
+    *****************/
     if($width == '100%'){
       $tcRoot.css('width','100%')
       $width = $tcRoot.width()
@@ -35,61 +46,69 @@
       $tcRoot.width($width)
     }
 
-
     var $numArticles = $('.tc-tab').length
 
     if($('.tc-tabs').length < 1){
       $('.tc-tab').wrapAll('<div>')
     }
     // Carousel setup
-    var $touchReel = $('<div class="tc-reel js-tc-reel" />').width($numArticles*$width)
-        $touchItem = $('<div class="tc-item js-tc-item" />').append($touchReel)
+    var $touchReel = $('<div class="tc-hero-reel js-tc-hero-reel" />').width($numArticles*$width)
+        $touchItem = $('<div class="tc-hero-wrapper js-tc-hero-wrapper" />').append($touchReel)
     $tcRoot.prepend($touchItem)
 
 
-    // Get each dom .tc-tab
+    /******************
+
+        HERO SETUP
+
+    *****************/
     $('.tc-root .tc-tab').each(function(i,v){
 
       if(settings.autoResizeTabs === true) $(this).css('width',($tcRoot.width()/$numArticles))
 
-      var $tcMain = $(this).clone().html()
-      $tcMain = $($tcMain)
+      var $tcMain = $(this).children().not('.tc-tab-only').clone()
 
-      // Strip any .tc-tab-only from new hero
-      $tcMain.find('.tc-tab-only').remove()
+      // Strip redundant DOM nodes
+      $(this).find('.tc-hero-only').remove()
 
-
+      // Replace <img>@src with @data-carousel
+      // (if statement is for .tc-tab <img> tags)
       if($tcMain.data('carousel') !== 'undefined'){
         $tcMain.attr('src', $tcMain.data('carousel'))
       }
-      // Replace <img>@src with @data-carousel
       $tcMain.find('img[data-carousel]').each(function(){
         $(this).attr('src', $(this).data('carousel'))
       })
 
 
-      // Strip any .tc-hero-only from tabs
-      $(this).find('.tc-hero-only').remove()
-
       // Create new hero item
-      $heroItem = $('<div>').width($width).addClass('article').append($tcMain) // New hero item
-
+      $heroItem = $('<div>').width($width).addClass('tc-hero-item js-tc-hero-item').append($tcMain) // New hero item
       // Add hero item
       $touchReel.append($heroItem)
 
-      // TIMERS
-      // Active: #214b71
-      // Normal: #3a73a6
+      // Timers
       var $timerOverlay = $('<div>').addClass('reel-timer-overlay js-reel-timer-overlay')
         , $timerDiv = $('<div>').addClass('reel-timer').append($timerOverlay)
+      $(this).addClass('js-tc-tab').attr('data-slide',(i+1));
+      if(settings.showTimers) $(this).prepend($timerDiv)
 
-      $(this).addClass('js-tc-tab').attr('data-slide',(i+1)).prepend($timerDiv)
 
+      // Settings > show tabs
+      if(!settings.showTabs) $(this).hide()
     })
 
 
 
 
+
+
+
+
+    /******************
+
+         METHODS
+
+    *****************/
 
     // Private vars
     var $currentSlide = 0
@@ -98,7 +117,8 @@
       , $subWidth = 0
       , $timeOut
 
-    // Resets slider to the first slide
+    // This function resets slider
+    // to the first slide
     this.resetCarousel = function resetCarousel(){
       $currentSlide = 0
     , $nextSlide = 1
@@ -111,16 +131,18 @@
     }
 
     // This function either gets the new margin-left
-    // position of the .tc-reel for a $slideNum provided,
+    // position of the .tc-hero-reel for a $slideNum provided,
     // or will 'fix' a broken position to the $currentSlide
     this.updateMargin = function updateMargin($slideNum){
       //console.log($slideNum)
       var $m = ($slideNum===1)?0:($slideNum-1)
-        , $newMargin = -( $m * $('.js-tc-item').width())
+        , $newMargin = -( $m * $('.js-tc-hero-wrapper').width())
       $touchReel.stop().animate({'margin-left' : $newMargin}, $transitionDuration, $easing)
     }
 
+    //
     // This function calls a slide to be moved to
+    //
     this.goToSlide = function goToSlide($slideNum){
       //console.log('goToSlide('+$slideNum+') called')
 
@@ -179,7 +201,23 @@
     }
 
 
-    // Deals with hovers on the .sub-menu
+    // INIT
+    this.init = function() {
+      $('.js-reel-timer-overlay:first-of-type').width(0)
+      setTimeout($this.nextSlide,50)
+      return this
+    }
+
+
+
+
+    /******************
+
+      FUNCTION CALLS
+
+    *****************/
+
+    // HOVER
     $('.js-tc-tab').hover(function(){
       clearTimeout($timeOut)
       $this.goToSlide($(this).data('slide'))
@@ -204,15 +242,6 @@
 
 
 
-    // INIT
-    this.init = function() {
-      $touchReel.show()
-      $('.js-reel-timer-overlay:first-of-type').width(0)
-      setTimeout($this.nextSlide,50)
-      return this
-    }
-
-
 
 
 
@@ -228,9 +257,10 @@
       $this.updateMargin($currentSlide)
     })
     .on('resize', function(){
-      $width = this.width()
-      $('.js-tc-reel').width($numArticles*$width)
-      $('.js-tc-reel .article').width($width)
+      $width = $this.width()
+      $('.js-tc-hero-reel').width($numArticles*$width)
+      $('.js-tc-hero-item').width($width)
+      if(settings.autoResizeTabs === true) $('.js-tc-tab').css('width',($tcRoot.width()/$numArticles))
       $this.updateMargin($currentSlide)
     })
 
@@ -287,7 +317,7 @@
           if( $heroMargin >= 0 ){
             // Carousel is left of first item
             $touchReel.css({'margin-left': $marginLeftMove * 0.2 })
-          }else if( $heroMargin <= -($('.js-tc-item').width()*3) ){
+          }else if( $heroMargin <= -($('.js-tc-hero-wrapper').width()*3) ){
             // Carousel is right of last item
 
             $touchReel.css({'margin-left': parseInt($initialPosition,10) + ($changeX*0.2) })

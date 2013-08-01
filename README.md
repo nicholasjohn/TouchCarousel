@@ -178,16 +178,20 @@ In the following example, the `.tc-extra` is being used to show a datetime, for 
 
 
 ## Update Log
+### Fixes & Essential
+- [ ] Transition-duration of `.reel-timer` to take main timer setting
+- [ ] Touch timers to fix
+### Features
 - [ ] Option extension for other easing types
 - [ ] LR Pagination
 - [ ] Dotted Pagination
-- [x] Default % width
 - [ ] LR keyboard
 - [ ] Spacebar pause
 - [ ] Transitions (Wipe)
 - [ ] Transitions (Fade)
 - [ ] Scroll extra tabs
-- [ ] Transition-duration of `.reel-timer` to take main timer setting
+- [x] Default tab % width setting
+- [x] Classes for Tab/Hero-only elements
 - [x] Conversion to plugin
 - [x] Extend plugin functions
 - [x] Header works off class, not <h> tag
@@ -204,45 +208,25 @@ The below table summarises the contents of each file throughout the structure of
   <tr>
     <th colspan=2>/CSS</th>
   </tr>
-  <tr>
-    <td>
-      <em>custom.css</em>
-    </td>
-    <td>
+  <tr><td><em>custom.css</em></td><td>
       Where custom stylings are kept. You should replace these with
       your styles, or implement them into your own site's stylesheets.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <em>styles.css</em>
-    </td>
-    <td>
+  </td>  </tr>
+  <tr><td><em>styles.css</em></td><td>
       Generic styling for the TouchCarousel
-    </td>
-  </tr>
+  </td>  </tr>
 
 
   <tr>
     <th colspan=2>/JS</th>
   </tr>
-  <tr>
-    <td>
-      <em>touchCarousel.js</em>
-    </td>
-    <td>
+  <tr><td><em>touchCarousel.js</em></td><td>
       This is the main jQuery file which runs carousel. It should be
       included as a script tag <strong>after</strong> your jQuery include.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <em>touchCarousel.min.js</em>
-    </td>
-    <td>
-      A minified version for use on live sites.
-    </td>
-  </tr>
+  </td> </tr>
+  <tr><td><em>touchCarousel.min.js</em></td><td>
+    A minified version for use on live sites.
+  </td></tr>
 
   <tr>
     <th colspan=2>HTML
@@ -250,12 +234,14 @@ The below table summarises the contents of each file throughout the structure of
       These are a compliled example HTML files.
     </th>
   </tr>
-  <tr>
-    <td>
-      <em>index.html</em>
-    </td>
-    <td>
-      </td>
-  </tr>
+  <tr><td><em>imageOnly.html</em></td><td>
+    A very basic example of how a list of images can become a carousel.
+  </td></tr>
+  <tr><td><em>imageLinks.html</em></td><td>
+    An example with basic carousel image linking.
+  </td></tr>
+  <tr><td><em>index.html</em></td><td>
+    A more complex example.
+  </td></tr>
 
 </table>

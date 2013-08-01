@@ -21,27 +21,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <link rel="stylesheet" type="text/css" href="css/styles.css" />
-  <link rel="stylesheet" type="text/css" href="css/custom.css" />
+  <!--<link rel="stylesheet" type="text/css" href="css/custom.css" />-->
   <!--[if IE ]>
     <link rel="stylesheet" type="text/css" href="styles-ie.css" />
   <![endif]-->
 
 </head>
-<body>
+<body id='imagesOnly'>
 
 <!-- Presentational outer wrapper -->
-<div class="container">
+<div class='container'>
 
   <!-- Carousel wrapper -->
   <ul class='tc-tabs'>
     <li class='tc-tab'>
-      <img src='http://dummyimage.com/194x109' data-carousel='http://dummyimage.com/1000x500' alt='alt' width='150' height='100' />
+      <img src='http://dummyimage.com/300x150' data-carousel='http://dummyimage.com/1000x500' alt='alt' />
     </li>
     <li class='tc-tab'>
-      <img src='http://dummyimage.com/194x109' data-carousel='http://dummyimage.com/1000x500' alt='alt' width='150' height='100' />
+      <img src='http://dummyimage.com/300x150' data-carousel='http://dummyimage.com/1000x500' alt='alt' />
     </li>
     <li class='tc-tab'>
-      <img src='http://dummyimage.com/194x109' data-carousel='http://dummyimage.com/1000x500' alt='alt' width='150' height='100' />
+      <img src='http://dummyimage.com/300x150' data-carousel='http://dummyimage.com/1000x500' alt='alt' />
     </li>
   </ul>
 
@@ -56,7 +56,7 @@
     , transitionDuration: 250 // In milliseconds
     , easing: 'swing' // 'swing' or 'linear'
     , width: '100%' // Width in pixels
-    , autoResizeTabs: false
+    , showTabs: false
     }
   )
 </script>

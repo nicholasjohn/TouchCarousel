@@ -12,35 +12,35 @@ body{
 	width: auto;
 	margin: 0 auto;
 }
-.touch-carousel {
+.tc-carousel {
 	padding-bottom: 10px;
 }
-	.touch-reel .h1 {
+	.tc-hero-reel .h1 {
 		max-height: 72px;
 		overflow: hidden;
 		line-height: 1.2;
 		color: rgb(238, 139, 14);
 	}
-	.touch-reel a:hover .h1 {
+	.tc-hero-reel a:hover .h1 {
 		text-decoration: underline;
 	}
-		.touch-reel .date-published{
+		.tc-hero-reel .date-published{
 			color: #999;
 			font-style: italic;
 		}
 
-.touch-tab {
+.tc-tab {
   width: 25%;
 	margin-top: 10px;
 }
-	.touch-tab .h4 {
+	.tc-tab .h4 {
 		max-height: 55px;
 		overflow: hidden;
 	}
-	.touch-tab .meta {
+	.tc-tab .meta {
 		display: none;
 	}
-	.touch-tab .article-title {
+	.tc-tab .article-title {
 		color: #DF7C3A;
 		text-decoration: none;
 		font-size: 1em;
