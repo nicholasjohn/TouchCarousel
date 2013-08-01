@@ -17,49 +17,77 @@ There are a few starting requirements for your HTML structure:
 
 
 #### Basic
-_JS Bin of the below example: http://jsbin.com/aqijuw/latest/_
 
-The most basic format of the carousel will turn elements into a carousel:
+The most basic format of the carousel will turn a list into a carousel; for example:
 
 ```html
-<div class='tc-root'>
-
-  <img class='tc-main' src='smallImage1.jpg' alt='alt' width='150' height='100' />
-  <h2 class='tc-main'>This is the second item</h2>
-  <a class='tc-main' href='#jelly'>
-    <h2>Some title</h2>
-    <p>Some text</p>
-  </a>
-
-</div>
+<ul class='tc-tabs'>
+  <li class='tc-tab'>
+    <img src='http://dummyimage.com/300x150' alt='alt' />
+  </li>
+  <li class='tc-tab'>
+    <img src='http://dummyimage.com/300x150' alt='alt' />
+  </li>
+</ul>
 ```
 
 
 
 #### Larger images
-Any `<img>` elements within your `.tc-main` can have a `data-carousel` attribute. This will replace the `src` attribute in the hero item.
+Any `<img>` elements can be given a `data-carousel` attribute to change the image `src` attribute inside the item's hero version; for example:
 
 
 ```html
-<div class='tc-root'>
+<ul class='tc-tabs'>
 
-  <img class='tc-main' src='smallImage1.jpg' alt='alt' width='150' height='100' />
-  <img class='tc-main' src='smallImage2.jpg' alt='alt' width='150' height='100' />
+  <li class='tc-tab'>
+    <img src='http://dummyimage.com/300x150' data-carousel='http://dummyimage.com/1000x600' alt='alt' />
+  </li>
+  
+  <li class='tc-tab'>
+    <img src='http://dummyimage.com/300x150' data-carousel='http://dummyimage.com/1000x600' alt='alt' />
+  </li>
 
-</div>
+</ul>
 ```
 
 
-#### Mixing elements
-`.tc-main` elements don't have to just be `<img>` elements! You can use any element, given it has the `.tc-main` class:
 
+#### Linking Images
+
+Basic linkage can be applied by wrapping the `<img>` in an `<a class='tc-tab'>`
 
 ```html
-<div class='tc-root'>
+<ul class='tc-tabs'>
 
-  <img class='tc-main' src='smallImage1.jpg' alt='alt' width='150' height='100' />
-  <h2 class='tc-main'>This is the second item</h2>
-  <a href='#jelly' class='tc-main'>
+  <li class='tc-tab'>
+    <a href='#'>
+      <img src='http://dummyimage.com/300x150' alt='alt' />
+    </a>
+  </li>
+
+  <li class='tc-tab'>
+    <a href='#'>
+      <img src='http://dummyimage.com/300x150' alt='alt' />
+    </a>
+  </li>
+
+</ul>
+```
+
+#### Mixing elements
+`.tc-tab` elements don't have to just be `<li>` elements inside a `<ul>`! You can use any elements, given they keep the same classes; for example:
+
+```html
+<div class='tc-tabs'>
+
+  <img class='tc-tab' src='http://dummyimage.com/300x150' alt='alt' width='150' height='100' />
+
+  <div class='tc-tab'>
+    This is the second item
+  </div>
+  
+  <a href='#jelly' class='tc-tab'>
     <h2>Some title</h2>
     <p>Some text</p>
   </a>
@@ -70,66 +98,20 @@ Any `<img>` elements within your `.tc-main` can have a `data-carousel` attribute
 
 
 
-#### Linking Images
-_JS Bin of the below example: http://jsbin.com/upixog/latest/_
-
-Carousel items and tabs can link by placing an `<a>` tag anywhere inside (or as) your `.tc-main`.
-
-```html
-<div class='tc-root'>
-
-  <div class='tc-main'>
-    <a href='#'>
-      <img src='smallImage1.jpg' data-carousel='largeImage1.jpg' alt='alt' width='150' height='100' />
-    </a>
-  </div>
-  
-  <a href='#' class='tc-main'>
-    <img src='smallImage2.jpg' data-carousel='largeImage2.jpg' alt='alt' width='150' height='100' />
-  </a>
-
-</div>
-```
 
 
+#### The '-only' class
 
-#### Complex Implementation
-_JS Bin of the below example: http://jsbin.com/azapol/latest/_
-
-You can also add custom elements anywhere within your `.tc-main` to create a more custom structure:
-
-
-
-    + – .tc-root –––––––––––––––––––––––––––– +
-    |                                         |
-    | + – .tc-tab ––––––––––––––––––––––––– + |
-    | | | + – .tc-hero - + –––––––––––– + | | |
-    | | |                |                | | |
-    | | |    Carousel    |    Tab-only    | | |
-    | | |    content     |    content     | | |
-    | | |                |                | | |
-    | | + –––––––––––––––+––––––––––––––– + | |
-    | + ––––––––––––––––––––––––––––––––––– + |
-    + ––––––––––––––––––––––––––––––––––––––– +
-
-
-
-In the following example, the `.tc-extra` is being used to show a datetime, for example on a news slider:
+You can add custom elements anywhere within your `.tc-tab` to create a more custom structure.
+For example, in the following carousel an extra datetime is being shown *only* in the item's tabular form and is showing a header *only* in the hero form:
 
 ```html
-<div class='tc-root'>
+<div class='tc-tabs'>
   
-  <article class='tc-main'> <!-- Container for each item -->
-  
-    <a href='http://google.co.uk'> <!-- The link of item -->
-      <img src='smallImage1.jpg' data-carousel='largeImage1.jpg' alt='alt' width='150' height='100' />
-      <h3>Item title</h3>
-    </a>
-    
-    <div class='tc-extra'> <!-- Meta content to be displayed outside the main item's link -->
-      <span class='date-published'>Weds 8 August 2012. Last updated: 1.16AM</span>
-    </div>
-    
+  <article class='tc-tab'>
+    <img src='http://dummyimage.com/300x150' data-carousel='http://dummyimage.com/1000x600' alt='alt' width='150' height='100' />
+    <h2 class='tc-hero-only'>This is a title!</h2>
+    <span class='date-published tc-tab-only'>Weds 8 August 2012. Last updated: 1.16AM</span>
   </article>
 
 </div>
