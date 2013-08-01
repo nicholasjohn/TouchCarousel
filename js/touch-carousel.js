@@ -17,6 +17,7 @@
       , transitionDuration: 250
       , easing: 'swing'
       , width: '100%'
+      , autoResizeTabs: true
     }, options )
 
     // Public variables
@@ -49,11 +50,14 @@
     // Get each dom .tc-tab
     $('.tc-root .tc-tab').each(function(i,v){
 
-      $(this).css('width',($tcRoot.width()/$numArticles))
+      if(settings.autoResizeTabs === true) $(this).css('width',($tcRoot.width()/$numArticles))
 
       var $tcMain = $(this).clone().html()
-
       $tcMain = $($tcMain)
+
+      // Strip any .tc-tab-only from new hero
+      $tcMain.find('.tc-tab-only').remove()
+
 
       if($tcMain.data('carousel') !== 'undefined'){
         $tcMain.attr('src', $tcMain.data('carousel'))
@@ -63,8 +67,6 @@
         $(this).attr('src', $(this).data('carousel'))
       })
 
-      // Strip any .tc-tab-only from new hero
-      $tcMain.find('.tc-tab-only').remove()
 
       // Strip any .tc-hero-only from tabs
       $(this).find('.tc-hero-only').remove()
