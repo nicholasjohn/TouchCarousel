@@ -18,7 +18,7 @@ The below table summarises the contents of each file throughout the structure of
       <em>custom.css</em>
     </td>
     <td>
-      Where custom stylings are kept. You should replace these with 
+      Where custom stylings are kept. You should replace these with
       your styles, or implement them into your own site's stylesheets.
     </td>
   </tr>
@@ -30,8 +30,8 @@ The below table summarises the contents of each file throughout the structure of
       Generic styling for the TouchCarousel
     </td>
   </tr>
-  
-  
+
+
   <tr>
     <th colspan=2>/JS</th>
   </tr>
@@ -40,11 +40,11 @@ The below table summarises the contents of each file throughout the structure of
       <em>touch-carousel.js</em>
     </td>
     <td>
-      This is the JavaScript file which runs your carousel! It should be 
+      This is the JavaScript file which runs your carousel! It should be
       included as a script tag <strong>after</strong> your jQuery include.
     </td>
   </tr>
-  
+
   <tr>
     <th colspan=2>HTML</th>
   </tr>
@@ -58,10 +58,11 @@ The below table summarises the contents of each file throughout the structure of
       <em>Note: <strong>.js-carousel</strong> is also needed on this container for jQuery targeting to work</em>
     </td>
   </tr>
-  
+
 </table>
 
 Future Updates
 --------------
 
 * Plugin implementation
+* Transition-duration of <strong>.reel-timer</strong> to take setting

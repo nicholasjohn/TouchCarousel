@@ -35,12 +35,12 @@
 
 
   <!-- Carousel wrapper -->
-  <div class='touch-carousel js-touch-carousel'>
+  <div class='touch-carousel'>
 
     <!--  Tab #1 -->
     <article class='touch-tab'>
       <a href='#'>
-        <img src='http://img.clock.co.uk/194x109' alt='Image Description' width='150' height='84' data-carousel='http://img.clock.co.uk/800x373?text=Hero 1 (800x373)&color=999999&textColor=fff'>
+        <img src='http://dummyimage.com/194x109' alt='Image Description' width='150' height='84' data-carousel='http://dummyimage.com/800x373/999/fff/&text=Hero 1'>
         <h3 class='article-title'>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</h3>
       </a>
       <div class='meta'>
@@ -51,7 +51,7 @@
     <!--  Tab #2 -->
     <article class='touch-tab'>
       <a href='#'>
-        <img src='http://img.clock.co.uk/194x109' alt='Image Description' width='150' height='84' data-carousel='http://img.clock.co.uk/800x373?text=Hero 2 (800x373)&color=74E24C&textColor=fff'>
+        <img src='http://dummyimage.com/194x109' alt='Image Description' width='150' height='84' data-carousel='http://dummyimage.com/800x373/74E24C/fff/&text=Hero 2'>
         <h3 class='article-title'>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</h3>
       </a>
       <div class='meta'>
@@ -62,7 +62,7 @@
     <!--  Tab #3 -->
     <article class='touch-tab'>
       <a href='#'>
-        <img src='http://img.clock.co.uk/194x109' alt='Image Description' width='150' height='84' data-carousel='http://img.clock.co.uk/800x373?text=Hero 3 (800x373)&color=f15501&textColor=fff'>
+        <img src='http://dummyimage.com/194x109' alt='Image Description' width='150' height='84' data-carousel='http://dummyimage.com/800x373/F15501/fff/&text=Hero 3'>
         <h3 class='article-title'>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</h3>
       </a>
       <div class='meta'>
@@ -73,7 +73,7 @@
     <!--  Tab #4 -->
     <article class='touch-tab'>
       <a href='#'>
-        <img src='http://img.clock.co.uk/194x109' alt='Image Description' width='150' height='84' data-carousel='http://img.clock.co.uk/800x373?text=Hero 4 (800x373)&color=28D1A8&textColor=fff'>
+        <img src='http://dummyimage.com/194x109' alt='Image Description' width='150' height='84' data-carousel='http://dummyimage.com/800x373/28D1A8/fff/&text=Hero 4'>
         <h3 class='article-title'>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</h3>
       </a>
       <div class='meta'>
@@ -87,8 +87,18 @@
 
 </div><!-- END OF .container -->
 
-<script type='text/javascript' src='http://code.jquery.com/jquery.min.js'></script>
-<script type='text/javascript' src='js/touch-carousel.js'></script>
+<script src='http://code.jquery.com/jquery.min.js'></script>
+<script src='js/touch-carousel.js'></script>
+<script>
+  var touchCarousel = $('.touch-carousel').touchCarousel(
+    {
+      slideDuration: 4000 // In milliseconds
+    , transitionDuration: 250 // In milliseconds
+    , easing: 'swing' // 'swing' or 'linear'
+    , width: '100%' // Width in pixels
+    }
+  )
+</script>
 
 </body>
 </html>
