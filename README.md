@@ -142,11 +142,11 @@ For example, in the following carousel an extra datetime is being shown *only* i
 > _Default: '100%'_
 >
 > ##### showTimers
-> Whether the 'filling' timer bars should be displayed
+> Whether the 'filling' timer bars should be displayed <br>
 > _Default: true_
 >
 > ##### showTabs
-> Whether the tabs section should be displayed. Set to false if the carousel hero area is the only region to be shown.
+> Whether the tabs section should be displayed. Set to false if the carousel hero area is the only region to be shown. <br>
 > _Default: true_
 >
 > ##### autoResizeTabs
