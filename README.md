@@ -184,6 +184,9 @@ In the following example, the `.tc-extra` is being used to show a datetime, for 
 - [x] Default % width
 - [ ] LR keyboard
 - [ ] Spacebar pause
+- [ ] Transitions (Wipe)
+- [ ] Transitions (Fade)
+- [ ] Scroll extra tabs
 - [ ] Transition-duration of `.reel-timer` to take main timer setting
 - [x] Conversion to plugin
 - [x] Extend plugin functions
