@@ -4,21 +4,13 @@ A flexible jQuery Carousel plugin with touch/swipe features.
 ## Usage
 
 Any element can have the `.touchCarousel()` method called on it, with a variety of optional settings being set.
-The method call and full list of settings can be seen below:
-
-```javascript
-var touchCarousel = $('.touch-carousel').touchCarousel(
-  {
-    slideDuration: 4000 // How long an item is shown before going to the next item (milliseconds)
-  , transitionDuration: 250 // The length of sliding transition (milliseconds)
-  , easing: 'swing' // Currently 'swing' or 'linear'
-  , width: '100%' // Width in pixels or '100%' for flexible
-  }
-)
-```
+The method call and full list of settings can be seen #touchcarousel below.
 
 
-### Basic
+### Implementation
+---
+
+#### Basic
 _JS Bin of the below example: http://jsbin.com/aqijuw/latest/_
 
 The most basic format of the carousel can make plain images into a slider.
@@ -35,7 +27,7 @@ _Note: all `<img>` tags can have a `data-carousel` attribute for an alternative 
 ```
 
 
-### Linking Images
+#### Linking Images
 _JS Bin of the below example: http://jsbin.com/upixog/latest/_
 
 Carousel items and tabs can link by wrapping the `<img>` tags within an `<a href='#'>` tag:
@@ -55,7 +47,7 @@ Carousel items and tabs can link by wrapping the `<img>` tags within an `<a href
 ```
 
 
-### Complex Implementation
+#### Complex Implementation
 _JS Bin of the below example: http://jsbin.com/azapol/latest/_
 
 You can also add custom elements with a more complex structure:
@@ -87,11 +79,50 @@ In the following example, the `.meta` is being used to show a datetime, for exam
 ```
 
 
+### $.touchCarousel()
+---
 
+<!--more-->
+#### Options
+
+> ##### slideDuration
+> How long an item is shown before going to the next item (milliseconds) <br>
+> _Default: 4000_
+> 
+> ##### transitionDuration
+> The length of sliding transition (milliseconds) <br>
+> _Default: 250_
+> 
+> ##### easing
+> Currently 'swing' or 'linear' <br>
+> _Default: 'swing'_
+> 
+> ##### width
+> Width in pixels or '100%' for flexible <br>
+> _Default: '100%'_
+
+
+
+#### Methods
+
+> ##### .goToSlide( slideNumber )
+> The carousel will move onto the given slideNumber and proceed from there.
+> 
+> ##### .nextSlide()
+> The carousel will move onto the next slide and proceed from there. If at the end of the carousel, it will return to the beginning.
+> 
+> ##### .prevSlide()
+> The carousel will move onto the previous slide and proceed from there. If at the first slide, it will go to the last slide.
+> 
+> ##### .resetCarousel()
+> This will restart the slider and reset all settings.
+> 
 
 
 
 ## Update Log
+- [ ] Option extension for other easing types
+- [ ] Transition-duration of `.reel-timer` to take main timer setting
 - [x] Conversion to plugin
 - [x] Extend plugin functions
 - [x] Header works off class, not <h> tag
@@ -99,10 +130,9 @@ In the following example, the `.meta` is being used to show a datetime, for exam
 - [x] Extend for images-only
 - [x] Extend for images in links
 - [x] Extend for complex structures
-- [ ] Transition-duration of `.reel-timer` to take main timer setting
 
 
-##Project Files
+## Project Files
 The below table summarises the contents of each file throughout the structure of TouchCarousel:
 
 <table>
@@ -150,16 +180,17 @@ The below table summarises the contents of each file throughout the structure of
   </tr>
 
   <tr>
-    <th colspan=2>HTML</th>
+    <th colspan=2>HTML
+      <br>
+      These are a compliled example HTML files.
+    </th>
   </tr>
   <tr>
     <td>
       <em>index.html</em>
     </td>
     <td>
-      This is a compliled example HTML file.
-      Please see inside the document for notes and tips.
-    </td>
+      </td>
   </tr>
 
 </table>
