@@ -11,7 +11,10 @@
 
     // Public variables
     var settings = $.extend({
-        newsetting: 0
+        slideDuration: 4000
+      , transitionDuration: 250
+      , easing: 'swing'
+      , width: '100%'
     }, options )
 
     // Public variables
