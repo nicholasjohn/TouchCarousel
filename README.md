@@ -12,8 +12,9 @@ The method call and full list of settings can be seen [below](#touchcarousel).
 
 There are a few starting requirements for your HTML structure:
 
-* Your carousel should have a container of class `.tc-root`
-* Each carousel item container should be given a class of `.tc-main`
+* Your carousel container should have a class of `.tc-tabs`
+* Each item within the carousel container should be given a class of `.tc-tab`
+
 
 
 #### Basic
@@ -43,7 +44,7 @@ Any `<img>` elements can be given a `data-carousel` attribute to change the imag
   <li class='tc-tab'>
     <img src='http://dummyimage.com/300x150' data-carousel='http://dummyimage.com/1000x600' alt='alt' />
   </li>
-  
+
   <li class='tc-tab'>
     <img src='http://dummyimage.com/300x150' data-carousel='http://dummyimage.com/1000x600' alt='alt' />
   </li>
@@ -87,7 +88,7 @@ Basic linkage can be applied by wrapping the `<img>` in an `<a class='tc-tab'>`
     This is the second item
   </div>
   
-  <a href='#jelly' class='tc-tab'>
+  <a href='#' class='tc-tab'>
     <h2>Some title</h2>
     <p>Some text</p>
   </a>
@@ -139,7 +140,18 @@ For example, in the following carousel an extra datetime is being shown *only* i
 > ##### width
 > Width in pixels or '100%' for flexible <br>
 > _Default: '100%'_
-
+>
+> ##### showTimers
+> Whether the 'filling' timer bars should be displayed
+> _Default: true_
+>
+> ##### showTabs
+> Whether the tabs section should be displayed. Set to false if the carousel hero area is the only region to be shown.
+> _Default: true_
+>
+> ##### autoResizeTabs
+> Whether tabs should gain percentage widths of the tabs section (i.e. 'fill' the region) <br>
+> _Default: true_
 
 
 #### Methods
@@ -227,3 +239,21 @@ The below table summarises the contents of each file throughout the structure of
   </td></tr>
 
 </table>
+
+## Composite DOM Structure
+
+The final DOM structure of the carousel will be as follows:
+
++--.tc-root-------------------------------+
+|                                         |
+|  +---.tc-hero-wrapper----------------+  |
+|  |  +----.tc-hero-reel------------+  |  |
+|  |  | .tc-hero-item(s)            |  |  |
+|  |  +-----------------------------+  |  |
+|  +-----------------------------------+  |
+|                                         |
+|  +---.tc-tabs------------------------+  |
+|  |  .tc-tab(s)                       |  |
+|  +-----------------------------------+  |
+|                                         |
++-----------------------------------------+
