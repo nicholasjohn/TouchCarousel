@@ -157,11 +157,22 @@
       , $subWidth = 0
       , $timeOut
 
+    // Resets slider to the first slide
+    this.resetCarousel = function resetCarousel(){
+      $currentSlide = 0
+    , $nextSlide = 1
+    , $isPaused = false
+    , $subWidth = 0
+
+      $this.goToSlide($nextSlide)
+      clearTimeout($timeOut)
+      $timeOut = setTimeout($this.nextSlide, $slideDuration)
+    }
 
     // This function either gets the new margin-left
     // position of the .touch-reel for a $slideNum provided,
     // or will 'fix' a broken position to the $currentSlide
-    function updateMargin($slideNum){
+    this.updateMargin = function updateMargin($slideNum){
       //console.log($slideNum)
       var $m = ($slideNum===1)?0:($slideNum-1)
         , $newMargin = -( $m * $('.js-touch-item').width())
@@ -176,7 +187,7 @@
       $('.animating').removeClass('animating')
       $('.touch-tab[data-slide="'+$slideNum+'"]').addClass('active').find('.js-reel-timer-overlay').addClass('animating')
       //.css({'-webkit-transition-duration':$slideDuration+'ms'})
-      updateMargin($slideNum)
+      this.updateMargin($slideNum)
 
     }
 
@@ -273,13 +284,13 @@
     .on('exit.two-col enter.two-col', function () {
       $subWidth = $('.js-touch-carousel .touch-tab:first-child').width()
       //console.log('updating')
-      updateMargin($currentSlide)
+      this.updateMargin($currentSlide)
     })
     .on('resize', function(){
       $width = $('.js-touch-carousel').width()
       $('.js-touch-reel').width($numArticles*$width)
       $('.js-touch-reel .article').width($width)
-      updateMargin($currentSlide)
+      this.updateMargin($currentSlide)
     })
 
 
