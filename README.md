@@ -240,8 +240,18 @@ The below table summarises the contents of each file throughout the structure of
 
 </table>
 
-## Composite DOM Structure
+## Composite DOM Structures
 
+### Initial
+The source-file HTML DOM structure of the carousel should be as follows:
+
+```
++---.tc-tabs------------------------+
+|  .tc-tab(s)                       |
++-----------------------------------+
+```
+
+### Final
 The final DOM structure of the carousel will be as follows:
 
 ```
