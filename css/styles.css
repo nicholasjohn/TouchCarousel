@@ -5,78 +5,74 @@
 
 */
 
-.js-touch-carousel {
+.tc-root {
   overflow: hidden;
 }
-.touch-reel {
+.tc-item {
+  float: left;
+  width: 100%;
+}
+.tc-reel {
   display: none;
   margin-left: 0;
 }
-  .touch-reel .article {
+  .tc-reel .article {
     position: relative;
     float: left;
     margin-bottom: 0;
   }
-    .touch-reel .article img {
-      width: 100%;
-    }
-    .touch-reel .article a {
-      display: block;
-      text-decoration: none;
-    }
-      .touch-reel .article a:hover .h1 {
-        text-decoration: underline;
-      }
-    .touch-reel .article .h1 {
-      z-index: 1;
-      width: 100%;
-      font-size: 30px;
-      position: static;
-      bottom: 0;
-      padding: 0;
-      box-sizing: content-box;
-    }
-      .touch-reel .article .meta a {
-        display: inline;
-      }
+  .tc-reel img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+  }
+  .tc-reel .tc-hero {
+    display: block;
+    text-decoration: none;
+  }
 
-.touch-tabs {
+.tc-tabs {
   clear: both;
+  float: left;
+  width: 100%;
+  padding: 0;
 }
-.touch-tab {
+.tc-tab {
   float: left;
   position: relative;
   opacity: 0.5;
   padding: 0;
   width: 25%;
   height: auto;
+  list-style: none;
+  margin: 0;
 }
-  .touch-tab:first-child {
+  .tc-tab:first-child {
     padding-left: 0;
     margin-left: 0;
   }
-  .touch-tab a {
+  .tc-tab a {
     display: block;
     text-decoration: none;
   }
-  .touch-tab h1 {
+  .tc-tab h1 {
     margin-bottom: 10px;
   }
-  .touch-tab img {
+  .tc-tab img {
     width: 100%;
     height: auto;
   }
-  .touch-reel .meta {
+  .tc-reel .meta {
     margin-top: 5px;
     margin-bottom: 20px;
   }
-  .touch-tab:hover {
+  .tc-tab:hover {
     opacity: 0.65;
   }
-  .touch-tab.active {
+  .tc-tab.active {
     opacity: 1;
   }
-    .touch-tab.active .reel-timer {
+    .tc-tab.active .reel-timer {
       visibility: visible;
     }
 .reel-timer {

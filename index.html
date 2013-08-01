@@ -35,53 +35,49 @@
 
 
   <!-- Carousel wrapper -->
-  <div class='touch-carousel'>
+  <div class='tc-tabs'>
 
     <!--  Tab #1 -->
-    <article class='touch-tab'>
-      <a href='#'>
-        <img src='http://dummyimage.com/194x109' alt='Image Description' width='150' height='84' data-carousel='http://dummyimage.com/800x373/999/fff/&text=Hero 1'>
-        <h3 class='article-title'>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</h3>
-      </a>
-      <div class='meta'>
+    <article class='tc-tab'>
+      <div class='tc-hero-only'>
+        <a href='#'>
+          <img src='http://dummyimage.com/194x109' alt='Image Description' width='150' height='84' data-carousel='http://dummyimage.com/1200x373/999/fff/&text=Hero 1'>
+          <h3>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</h3>
+        </a>
+      </div>
+
+      <div>
         <span class='date-published'>Weds 8 August 2012. Last updated: 1.16AM</span>
       </div>
     </article>
 
     <!--  Tab #2 -->
-    <article class='touch-tab'>
+    <article class='tc-tab'>
       <a href='#'>
-        <img src='http://dummyimage.com/194x109' alt='Image Description' width='150' height='84' data-carousel='http://dummyimage.com/800x373/74E24C/fff/&text=Hero 2'>
-        <h3 class='article-title'>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</h3>
+        <img src='http://dummyimage.com/194x109' alt='Image Description' width='150' height='84' data-carousel='http://dummyimage.com/1200x373/74E24C/fff/&text=Hero 2'>
+        <h3>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</h3>
       </a>
-      <div class='meta'>
+      <div>
         <span class='date-published'>Weds 8 August 2012. Last updated: 1.16AM</span>
       </div>
     </article>
 
     <!--  Tab #3 -->
-    <article class='touch-tab'>
+    <article class='tc-tab'>
+
       <a href='#'>
-        <img src='http://dummyimage.com/194x109' alt='Image Description' width='150' height='84' data-carousel='http://dummyimage.com/800x373/F15501/fff/&text=Hero 3'>
-        <h3 class='article-title'>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</h3>
+        <img src='http://dummyimage.com/194x109' alt='Image Description' width='150' height='84' data-carousel='http://dummyimage.com/1200x373/F15501/fff/&text=Hero 3'>
+        <h3 class='tc-hero-only'>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</h3>
       </a>
-      <div class='meta'>
-        <span class='date-published'>Weds 8 August 2012. Last updated: 1.16AM</span>
-      </div>
+
+      <!-- Only shown in tab -->
+      <p class='tc-tab-only'>
+        Bunch of text in here
+      </p>
+
     </article>
 
-    <!--  Tab #4 -->
-    <article class='touch-tab'>
-      <a href='#'>
-        <img src='http://dummyimage.com/194x109' alt='Image Description' width='150' height='84' data-carousel='http://dummyimage.com/800x373/28D1A8/fff/&text=Hero 4'>
-        <h3 class='article-title'>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</h3>
-      </a>
-      <div class='meta'>
-        <span class='date-published'>Weds 8 August 2012. Last updated: 1.16AM</span>
-      </div>
-    </article>
-
-  </div><!-- END OF .touch-carousel -->
+  </div><!-- END OF .tc-carousel -->
 
 
 
@@ -90,7 +86,7 @@
 <script src='http://code.jquery.com/jquery.min.js'></script>
 <script src='js/touch-carousel.js'></script>
 <script>
-  var touchCarousel = $('.touch-carousel').touchCarousel(
+  var touchCarousel = $('.tc-tabs').touchCarousel(
     {
       slideDuration: 4000 // In milliseconds
     , transitionDuration: 250 // In milliseconds

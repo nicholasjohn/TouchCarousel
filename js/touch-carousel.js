@@ -4,9 +4,11 @@
       Extension: HeroCarousel
       Built by: Nick Price
     */
-
     $this = this
-    this.addClass('js-touch-carousel')
+
+    this.wrap( $('<div />').addClass('tc-root js-tc-root') )
+    $tcRoot = this.parents('.tc-root')
+
 
 
     // Public variables
@@ -24,131 +26,68 @@
       , $width = settings.width // Width in pixels
 
 
-
     if($width == '100%'){
-      $('.js-touch-carousel').css('width','100%')
-      $width = $('.js-touch-carousel').width()
+      $tcRoot.css('width','100%')
+      $width = $tcRoot.width()
     }else{
       $width = parseInt($width,10) // Strip units should the user enter 'px'
-      $('.js-touch-carousel').width($width)
+      $tcRoot.width($width)
     }
 
 
-    // DEFINE CAROUSEL TYPE
-    if( $('.js-touch-carousel > img').length !== 0 ) {
-      $carouselType = 'imagesOnly'
-      var $numArticles = $('.js-touch-carousel > img').length
-      console.log($numArticles)
-      $('.js-touch-carousel > img').wrapAll('<div class="touch-tabs js-touch-tabs" />')
+    var $numArticles = $('.tc-tab').length
 
-    } else if( $('.js-touch-carousel > .touch-tab').length !== 0 ){
-      $carouselType = 'linksInside'
-      var $numArticles = $('.touch-tab').length
-      console.log($numArticles)
-      $('.js-touch-carousel > .touch-tab').wrapAll('<div class="touch-tabs js-touch-tabs" />')
-
-    } else if( $('a:first-child > img').length !== 0 ) {
-      $carouselType = 'imageLinks'
-      var $numArticles = $('.js-touch-carousel > a').length
-      console.log($numArticles)
-      $('.js-touch-carousel > a').wrapAll('<div class="touch-tabs js-touch-tabs" />')
-
+    if($('.tc-tabs').length < 1){
+      $('.tc-tab').wrapAll('<div>')
     }
-
-
     // Carousel setup
-    var $touchReel = $('<div class="touch-reel js-touch-reel" />').width($numArticles*$width)
-        $touchItem = $('<div class="touch-item js-touch-item" />').append($touchReel)
-      , $carouselType
-
-    $('.js-touch-carousel').prepend($touchItem)
+    var $touchReel = $('<div class="tc-reel js-tc-reel" />').width($numArticles*$width)
+        $touchItem = $('<div class="tc-item js-tc-item" />').append($touchReel)
+    $tcRoot.prepend($touchItem)
 
 
-    switch($carouselType) {
+    // Get each dom .tc-tab
+    $('.tc-root .tc-tab').each(function(i,v){
 
-      case 'imagesOnly' : // .touch-carousel contains images only
-        $('.js-touch-tabs img').each(function(i,v){
-          var $bigImg = $('<img>').attr({
-              src: $(this).data('carousel'),
-              title: $(this).attr('alt'),
-              alt: $(this).attr('alt')
-            })
-            , $newItem = $('<div>').width($width).addClass('article').append($bigImg) // New hero item
+      $(this).css('width',($tcRoot.width()/$numArticles))
 
-          $touchReel.append($newItem)
+      var $tcMain = $(this).clone().html()
 
-          // TIMERS
-          // Active: #214b71
-          // Normal: #3a73a6
-          var $timerOverlay = $('<div>').addClass('reel-timer-overlay js-reel-timer-overlay')
-            , $timerDiv = $('<div>').addClass('reel-timer').append($timerOverlay)
+      $tcMain = $($tcMain)
 
-          var $wrapper = $('<article>').addClass('touch-tab js-touch-tab').attr('data-slide',(i+1))
-          $(this).wrap($wrapper)
-          $timerDiv.insertBefore($(this))
+      if($tcMain.data('carousel') !== 'undefined'){
+        $tcMain.attr('src', $tcMain.data('carousel'))
+      }
+      // Replace <img>@src with @data-carousel
+      $tcMain.find('img[data-carousel]').each(function(){
+        $(this).attr('src', $(this).data('carousel'))
+      })
 
-        })
-        break;
+      // Strip any .tc-tab-only from new hero
+      $tcMain.find('.tc-tab-only').remove()
 
-      case 'imageLinks' : // .touch-carousel contains images within links
-        $('.js-touch-carousel .touch-tabs > a').each(function(i,v){
-          var $bigImg = $(this).find('img')
-            , $a   = $(this)
-            , $newImg = $('<img>').attr({
-              src: $bigImg.data('carousel'),
-              title: $bigImg.attr('alt'),
-              alt: $bigImg.attr('alt')
-            })
-            , $newA = $('<a>').attr({
-              href: $a.attr('href')
-            }).append($newImg)
-            , $newItem = $('<div>').width($width).addClass('article').append($newA)
+      // Strip any .tc-hero-only from tabs
+      $(this).find('.tc-hero-only').remove()
 
-          $touchReel.append($newItem)
+      // Create new hero item
+      $heroItem = $('<div>').width($width).addClass('article').append($tcMain) // New hero item
 
-          // TIMERS
-          // Active: #214b71
-          // Normal: #3a73a6
-          var $timerOverlay = $('<div>').addClass('reel-timer-overlay js-reel-timer-overlay')
-            , $timerDiv = $('<div>').addClass('reel-timer').append($timerOverlay)
+      // Add hero item
+      $touchReel.append($heroItem)
 
-          var $wrapper = $('<article>').addClass('touch-tab js-touch-tab').attr('data-slide',(i+1))
-          $(this).wrap($wrapper)
-          $timerDiv.insertBefore($(this))
+      // TIMERS
+      // Active: #214b71
+      // Normal: #3a73a6
+      var $timerOverlay = $('<div>').addClass('reel-timer-overlay js-reel-timer-overlay')
+        , $timerDiv = $('<div>').addClass('reel-timer').append($timerOverlay)
 
-        })
-        break;
+      $(this).addClass('js-tc-tab').attr('data-slide',(i+1)).prepend($timerDiv)
 
-      default : // .touch-tab is complex
-        $('.js-touch-carousel .touch-tab').each(function(i,v){
-          var $bigImg = $(this).find('img')
-            , $a   = $(this).find('a')
-            , $h   = $(this).find('.article-title')
-            , $meta = $(this).find('.meta')
-            , $newImg = $('<img>').attr({
-              src: $bigImg.data('carousel'),
-              title: $bigImg.attr('alt'),
-              alt: $bigImg.attr('alt')
-            })
-            , $newH = $('<h3>').addClass('h1 article-title').html($h.text())
-            , $newA = $('<a>').attr({
-              href: $a.attr('href')
-            }).append($newImg).append($newH)
-            , $newItem = $('<div>').width($width).addClass('article').append($newA).append($meta) // New hero item
+    })
 
 
-          $touchReel.append($newItem)
 
-          // TIMERS
-          // Active: #214b71
-          // Normal: #3a73a6
-          var $timerOverlay = $('<div>').addClass('reel-timer-overlay js-reel-timer-overlay')
-            , $timerDiv = $('<div>').addClass('reel-timer').append($timerOverlay)
-          $(this).addClass('js-touch-tab').attr('data-slide',(i+1)).prepend($timerDiv)
 
-        })
-        break;
-    }
 
     // Private vars
     var $currentSlide = 0
@@ -164,18 +103,18 @@
     , $isPaused = false
     , $subWidth = 0
 
-      $this.goToSlide($nextSlide)
+      this.goToSlide($nextSlide)
       clearTimeout($timeOut)
-      $timeOut = setTimeout($this.nextSlide, $slideDuration)
+      $timeOut = setTimeout(this.nextSlide, $slideDuration)
     }
 
     // This function either gets the new margin-left
-    // position of the .touch-reel for a $slideNum provided,
+    // position of the .tc-reel for a $slideNum provided,
     // or will 'fix' a broken position to the $currentSlide
     this.updateMargin = function updateMargin($slideNum){
       //console.log($slideNum)
       var $m = ($slideNum===1)?0:($slideNum-1)
-        , $newMargin = -( $m * $('.js-touch-item').width())
+        , $newMargin = -( $m * $('.js-tc-item').width())
       $touchReel.stop().animate({'margin-left' : $newMargin}, $transitionDuration, $easing)
     }
 
@@ -183,9 +122,9 @@
     this.goToSlide = function goToSlide($slideNum){
       //console.log('goToSlide('+$slideNum+') called')
 
-      $('.touch-tab.active').removeClass('active')
+      $('.tc-tab.active').removeClass('active')
       $('.animating').removeClass('animating')
-      $('.touch-tab[data-slide="'+$slideNum+'"]').addClass('active').find('.js-reel-timer-overlay').addClass('animating')
+      $('.tc-tab[data-slide="'+$slideNum+'"]').addClass('active').find('.js-reel-timer-overlay').addClass('animating')
       //.css({'-webkit-transition-duration':$slideDuration+'ms'})
       this.updateMargin($slideNum)
 
@@ -205,7 +144,7 @@
         //Update slide states
         if ( ($nextSlide+1) > $numArticles ){ // Has carousel reached the end?
           $nextSlide = 1 // Reset carousel
-          $currentSlide = 4
+          $currentSlide = $numArticles
         }else{
           $currentSlide = $nextSlide
           $nextSlide++
@@ -223,7 +162,7 @@
         //Update slide states
         if ( ($currentSlide-1) === 0 ){ // Has carousel reached the end?
           $nextSlide = 1 // Reset carousel
-          $currentSlide = 4
+          $currentSlide = $numArticles
         }else{
           $nextSlide = $currentSlide
           $currentSlide--
@@ -239,7 +178,7 @@
 
 
     // Deals with hovers on the .sub-menu
-    $('.js-touch-tab').hover(function(){
+    $('.js-tc-tab').hover(function(){
       clearTimeout($timeOut)
       $this.goToSlide($(this).data('slide'))
 
@@ -267,7 +206,7 @@
     this.init = function() {
       $touchReel.show()
       $('.js-reel-timer-overlay:first-of-type').width(0)
-      setTimeout(this.nextSlide,50)
+      setTimeout($this.nextSlide,50)
       return this
     }
 
@@ -282,14 +221,14 @@
     */
     $(window)
     .on('exit.two-col enter.two-col', function () {
-      $subWidth = $('.js-touch-carousel .touch-tab:first-child').width()
+      $subWidth = $('.tc-root .tc-tab:first-child').width()
       //console.log('updating')
       this.updateMargin($currentSlide)
     })
     .on('resize', function(){
-      $width = $('.js-touch-carousel').width()
-      $('.js-touch-reel').width($numArticles*$width)
-      $('.js-touch-reel .article').width($width)
+      $width = this.width()
+      $('.js-tc-reel').width($numArticles*$width)
+      $('.js-tc-reel .article').width($width)
       this.updateMargin($currentSlide)
     })
 
@@ -346,7 +285,7 @@
           if( $heroMargin >= 0 ){
             // Carousel is left of first item
             $touchReel.css({'margin-left': $marginLeftMove * 0.2 })
-          }else if( $heroMargin <= -($('.js-touch-item').width()*3) ){
+          }else if( $heroMargin <= -($('.js-tc-item').width()*3) ){
             // Carousel is right of last item
 
             $touchReel.css({'margin-left': parseInt($initialPosition,10) + ($changeX*0.2) })
@@ -355,7 +294,7 @@
           }
 
           // add active state
-          $('.js-touch-tab.active').find('.js-reel-timer-overlay').removeClass('animating').addClass('full')
+          $('.js-tc-tab.active').find('.js-reel-timer-overlay').removeClass('animating').addClass('full')
 
         } else {
           // A vertical movement, so let the
@@ -373,7 +312,7 @@
         $(this).off('touchend')
         $(this).off('touchmove')
 
-        $('.js-touch-tab.active').find('.full').removeClass('full').width(0).addClass('animating')
+        $('.js-tc-tab.active').find('.full').removeClass('full').width(0).addClass('animating')
 
         $isPaused = false
 
@@ -384,23 +323,23 @@
         }else{
           if($marginLeftMove < parseInt($initialPosition,10)){
             //console.log('left swipe')
-            if($currentSlide!==4){
+            if($currentSlide!==$numArticles){
               clearTimeout($timeOut)
-              $this.nextSlide()
+              this.nextSlide()
             }else{
-              $this.goToSlide(4)
+              this.goToSlide($numArticles)
               clearTimeout($timeOut)
-              $timeOut = setTimeout($this.nextSlide, $slideDuration)
+              $timeOut = setTimeout(this.nextSlide, $slideDuration)
             }
           }else{
             //console.log('right swipe')
             if($currentSlide!==1){
               clearTimeout($timeOut)
-              $this.prevSlide()
+              this.prevSlide()
             }else{
-              $this.goToSlide(1)
+              $tcRoot.goToSlide(1)
               clearTimeout($timeOut)
-              $timeOut = setTimeout($this.nextSlide, $slideDuration)
+              $timeOut = setTimeout(this.nextSlide, $slideDuration)
             }
           }
         }

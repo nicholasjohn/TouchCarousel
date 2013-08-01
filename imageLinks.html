@@ -33,21 +33,21 @@
 <div class="container">
 
   <!-- Carousel wrapper -->
-  <div class='touch-carousel'>
+  <div class='tc-root'>
 
-    <a href='#'>
+    <a href='#' class='tc-hero'>
       <img src='http://dummyimage.com/194x109' data-carousel='http://dummyimage.com/800x373/999/fff/&text=Hero 1' alt='Image Description' width='150' height='84' />
     </a>
 
-    <a href='#'>
+    <a href='#' class='tc-hero'>
       <img src='http://dummyimage.com/194x109' data-carousel='http://dummyimage.com/800x373/74E24C/fff/&text=Hero 2' alt='Image Description' width='150' height='84' />
     </a>
 
-    <a href='#'>
+    <a href='#' class='tc-hero'>
       <img src='http://dummyimage.com/194x109' data-carousel='http://dummyimage.com/800x373/F15501/fff/&text=Hero 3' alt='Image Description' width='150' height='84' />
     </a>
 
-    <a href='#'>
+    <a href='#' class='tc-hero'>
       <img src='http://dummyimage.com/194x109' data-carousel='http://dummyimage.com/800x373/28D1A8/fff/&text=Hero 4' alt='Image Description' width='150' height='84' />
     </a>
 
@@ -59,7 +59,7 @@
 <script src='http://code.jquery.com/jquery.min.js'></script>
 <script src='js/touch-carousel.js'></script>
 <script>
-  var touchCarousel = $('.touch-carousel').touchCarousel(
+  var touchCarousel = $('.tc-root').touchCarousel(
     {
       slideDuration: 4000 // In milliseconds
     , transitionDuration: 250 // In milliseconds
