@@ -1,45 +1,90 @@
 # Touch Carousel
-A flexible jQuery Carousel plugin with touch/swipe features. 
+An any-element, flexible jQuery Carousel plugin with touch/swipe features.
 
 ## Usage
 
 Any element can have the `.touchCarousel()` method called on it, with a variety of optional settings being set.
-The method call and full list of settings can be seen #touchcarousel below.
+The method call and full list of settings can be seen [below](#touchcarousel).
 
 
 ### Implementation
 ---
 
+There are a few starting requirements for your HTML structure:
+
+* Your carousel should have a container of class `.tc-root`
+* Each carousel item container should be given a class of `.tc-main`
+
+
 #### Basic
 _JS Bin of the below example: http://jsbin.com/aqijuw/latest/_
 
-The most basic format of the carousel can make plain images into a slider.
-
-_Note: all `<img>` tags can have a `data-carousel` attribute for an alternative image as the matching carousel item_
+The most basic format of the carousel will turn elements into a carousel:
 
 ```html
-<div class='touch-carousel'>
+<div class='tc-root'>
 
-  <img src='smallImage1.jpg' data-carousel='largeImage1.jpg' alt='alt' width='150' height='100' />
-  <img src='smallImage2.jpg' data-carousel='largeImage2.jpg' alt='alt' width='150' height='100' />
+  <img class='tc-main' src='smallImage1.jpg' alt='alt' width='150' height='100' />
+  <h2 class='tc-main'>This is the second item</h2>
+  <a class='tc-main' href='#jelly'>
+    <h2>Some title</h2>
+    <p>Some text</p>
+  </a>
 
 </div>
 ```
 
 
+
+#### Larger images
+Any `<img>` elements within your `.tc-main` can have a `data-carousel` attribute. This will replace the `src` attribute in the hero item.
+
+
+```html
+<div class='tc-root'>
+
+  <img class='tc-main' src='smallImage1.jpg' alt='alt' width='150' height='100' />
+  <img class='tc-main' src='smallImage2.jpg' alt='alt' width='150' height='100' />
+
+</div>
+```
+
+
+#### Mixing elements
+`.tc-main` elements don't have to just be `<img>` elements! You can use any element, given it has the `.tc-main` class:
+
+
+```html
+<div class='tc-root'>
+
+  <img class='tc-main' src='smallImage1.jpg' alt='alt' width='150' height='100' />
+  <h2 class='tc-main'>This is the second item</h2>
+  <a href='#jelly' class='tc-main'>
+    <h2>Some title</h2>
+    <p>Some text</p>
+  </a>
+
+</div>
+```
+
+
+
+
 #### Linking Images
 _JS Bin of the below example: http://jsbin.com/upixog/latest/_
 
-Carousel items and tabs can link by wrapping the `<img>` tags within an `<a href='#'>` tag:
+Carousel items and tabs can link by placing an `<a>` tag anywhere inside (or as) your `.tc-main`.
 
 ```html
-<div class='touch-carousel'>
+<div class='tc-root'>
 
-  <a href='#'>
-    <img src='smallImage1.jpg' data-carousel='largeImage1.jpg' alt='alt' width='150' height='100' />
-  </a>
+  <div class='tc-main'>
+    <a href='#'>
+      <img src='smallImage1.jpg' data-carousel='largeImage1.jpg' alt='alt' width='150' height='100' />
+    </a>
+  </div>
   
-  <a href='#'>
+  <a href='#' class='tc-main'>
     <img src='smallImage2.jpg' data-carousel='largeImage2.jpg' alt='alt' width='150' height='100' />
   </a>
 
@@ -47,29 +92,41 @@ Carousel items and tabs can link by wrapping the `<img>` tags within an `<a href
 ```
 
 
+
 #### Complex Implementation
 _JS Bin of the below example: http://jsbin.com/azapol/latest/_
 
-You can also add custom elements with a more complex structure:
+You can also add custom elements anywhere within your `.tc-main` to create a more custom structure:
 
-* Each tab should have a class of `.touch-tab`
-* If the item should link, nest within an `<a>` tag
-* Titles should have a class of `.article-title`
-* Meta data should have a class of `.meta` - any tags inside will be duplicated below the title in the main item
 
-In the following example, the `.meta` is being used to show a datetime, for example on a news slider:
+
+    + – .tc-root –––––––––––––––––––––––––––– +
+    |                                         |
+    | + – .tc-tab ––––––––––––––––––––––––– + |
+    | | | + – .tc-hero - + –––––––––––– + | | |
+    | | |                |                | | |
+    | | |    Carousel    |    Tab-only    | | |
+    | | |    content     |    content     | | |
+    | | |                |                | | |
+    | | + –––––––––––––––+––––––––––––––– + | |
+    | + ––––––––––––––––––––––––––––––––––– + |
+    + ––––––––––––––––––––––––––––––––––––––– +
+
+
+
+In the following example, the `.tc-extra` is being used to show a datetime, for example on a news slider:
 
 ```html
-<div class='touch-carousel'>
+<div class='tc-root'>
   
-  <article class='touch-tab'> <!-- Container for each item -->
+  <article class='tc-main'> <!-- Container for each item -->
   
     <a href='http://google.co.uk'> <!-- The link of item -->
       <img src='smallImage1.jpg' data-carousel='largeImage1.jpg' alt='alt' width='150' height='100' />
-      <h3 class='article-title'>Item title</h3>
+      <h3>Item title</h3>
     </a>
     
-    <div class='meta'> <!-- Meta content to be displayed outside the main item's link -->
+    <div class='tc-extra'> <!-- Meta content to be displayed outside the main item's link -->
       <span class='date-published'>Weds 8 August 2012. Last updated: 1.16AM</span>
     </div>
     
@@ -122,6 +179,11 @@ In the following example, the `.meta` is being used to show a datetime, for exam
 
 ## Update Log
 - [ ] Option extension for other easing types
+- [ ] LR Pagination
+- [ ] Dotted Pagination
+- [x] Default % width
+- [ ] LR keyboard
+- [ ] Spacebar pause
 - [ ] Transition-duration of `.reel-timer` to take main timer setting
 - [x] Conversion to plugin
 - [x] Extend plugin functions
