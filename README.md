@@ -1,8 +1,5 @@
 # Touch Carousel
-A flexible jQuery Carousel plugin with touch/swipe features.
-
-## Example
-You can see a working example at http://jsbin.com/azapol/latest/edit/
+A flexible jQuery Carousel plugin with touch/swipe features. 
 
 ## Usage
 
@@ -22,6 +19,7 @@ var touchCarousel = $('.touch-carousel').touchCarousel(
 
 
 ### Basic
+_JS Bin of the below example: http://jsbin.com/aqijuw/latest/_
 
 The most basic format of the carousel can make plain images into a slider.
 
@@ -38,6 +36,7 @@ _Note: all `<img>` tags can have a `data-carousel` attribute for an alternative 
 
 
 ### Linking Images
+_JS Bin of the below example: http://jsbin.com/upixog/latest/_
 
 Carousel items and tabs can link by wrapping the `<img>` tags within an `<a href='#'>` tag:
 
@@ -57,6 +56,8 @@ Carousel items and tabs can link by wrapping the `<img>` tags within an `<a href
 
 
 ### Complex Implementation
+_JS Bin of the below example: http://jsbin.com/azapol/latest/_
+
 You can also add custom elements with a more complex structure:
 
 * Each tab should have a class of `.touch-tab`
@@ -90,12 +91,14 @@ In the following example, the `.meta` is being used to show a datetime, for exam
 
 
 
-
 ## Update Log
 - [x] Conversion to plugin
 - [x] Extend plugin functions
 - [x] Header works off class, not <h> tag
-- [ ] Remove necessity for `<a>` tag within tabs
+- [x] Remove necessity for `<a>` tag within tabs
+- [x] Extend for images-only
+- [x] Extend for images in links
+- [x] Extend for complex structures
 - [ ] Transition-duration of `.reel-timer` to take main timer setting
 
 
