@@ -254,10 +254,21 @@ The below table summarises the contents of each file throughout the structure of
 
 </table>
 
-## Composite DOM Structure
+## Composite DOM Structures
 
+### Initial
+The source-file HTML DOM structure of the carousel should be as follows:
+
+```
++---.tc-tabs------------------------+
+|  .tc-tab(s)                       |
++-----------------------------------+
+```
+
+### Final
 The final DOM structure of the carousel will be as follows:
 
+<<<<<<< HEAD
 
 > +--.tc-root-------------------------------+
 > |                                         |
@@ -272,3 +283,20 @@ The final DOM structure of the carousel will be as follows:
 > |  +-----------------------------------+  |
 > |                                         |
 > +-----------------------------------------+
+=======
+```
++--.tc-root-------------------------------+
+|                                         |
+|  +---.tc-hero-wrapper----------------+  |
+|  |  +----.tc-hero-reel------------+  |  |
+|  |  | .tc-hero-item(s)            |  |  |
+|  |  +-----------------------------+  |  |
+|  +-----------------------------------+  |
+|                                         |
+|  +---.tc-tabs------------------------+  |
+|  |  .tc-tab(s)                       |  |
+|  +-----------------------------------+  |
+|                                         |
++-----------------------------------------+
+```
+>>>>>>> 35b0726049c39b48424ea196e5e179029c9120da
