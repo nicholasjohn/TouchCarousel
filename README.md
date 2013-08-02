@@ -152,6 +152,18 @@ For example, in the following carousel an extra datetime is being shown *only* i
 > ##### autoResizeTabs
 > Whether tabs should gain percentage widths of the tabs section (i.e. 'fill' the region) <br>
 > _Default: true_
+>
+> ##### hoverActive
+> Set to false to disable all hover pausing, or use the below options of (heroHoverPause & tabsHoverPause)
+> _Default: true_
+>
+> ##### heroHoverPause
+> Should the carousel pause when hovering the hero? <br>
+> _Default: true_
+>
+> ##### tabsHoverPause
+> Should hovering the tabs change the carousel? <br>
+> _Default: true_
 
 
 #### Methods
@@ -172,15 +184,17 @@ For example, in the following carousel an extra datetime is being shown *only* i
 
 
 ## Update Log
-### Fixes & Essential
+### Essential
 - [ ] Transition-duration of `.reel-timer` to take main timer setting
 - [ ] Touch timers to fix
 ### Features
 - [ ] Option extension for other easing types
 - [ ] LR Pagination
 - [ ] Dotted Pagination
-- [ ] LR keyboard
-- [ ] Spacebar pause
+- [x] LR keyboard
+- [x] Hover pause w/button
+- [x] Pausing for tabs/hero/both can be set in options
+- [?] Spacebar pause - Need to check whether this is more important than page scroll (option maybe?)
 - [ ] Transitions (Wipe)
 - [ ] Transitions (Fade)
 - [ ] Scroll extra tabs
@@ -243,6 +257,7 @@ The below table summarises the contents of each file throughout the structure of
 ## Composite DOM Structure
 
 The final DOM structure of the carousel will be as follows:
+
 
 > +--.tc-root-------------------------------+
 > |                                         |

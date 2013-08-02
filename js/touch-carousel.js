@@ -20,6 +20,9 @@
       , autoResizeTabs: true
       , showTimers: true
       , showTabs: true
+      , heroHoverPause: true
+      , tabsHoverPause: true
+      , hoverActive: true
     }, options )
 
     // Public variables
@@ -52,9 +55,10 @@
       $('.tc-tab').wrapAll('<div>')
     }
     // Carousel setup
-    var $touchReel = $('<div class="tc-hero-reel js-tc-hero-reel" />').width($numArticles*$width)
-        $touchItem = $('<div class="tc-hero-wrapper js-tc-hero-wrapper" />').append($touchReel)
-    $tcRoot.prepend($touchItem)
+    var $tcReel = $('<div class="tc-hero-reel js-tc-hero-reel" />').width($numArticles*$width)
+        $tcPauseIcon = $('<div class="tc-hero-pause-icon" />').html('ll')
+        $tcWrapper = $('<div class="tc-hero-wrapper js-tc-hero-wrapper" />').append($tcPauseIcon).append($tcReel)
+    $tcRoot.prepend($tcWrapper)
 
 
     /******************
@@ -82,14 +86,14 @@
 
 
       // Create new hero item
-      $heroItem = $('<div>').width($width).addClass('tc-hero-item js-tc-hero-item').append($tcMain) // New hero item
+      $heroItem = $('<div>').width($width).addClass('tc-hero-item js-tc-hero-item').addClass('js-tc-tab').attr('data-slide',(i+1)).append($tcMain) // New hero item
       // Add hero item
-      $touchReel.append($heroItem)
+      $tcReel.append($heroItem)
 
       // Timers
       var $timerOverlay = $('<div>').addClass('reel-timer-overlay js-reel-timer-overlay')
         , $timerDiv = $('<div>').addClass('reel-timer').append($timerOverlay)
-      $(this).addClass('js-tc-tab').attr('data-slide',(i+1));
+      $(this).addClass('js-tc-tab').attr('data-slide',(i+1))
       if(settings.showTimers) $(this).prepend($timerDiv)
 
 
@@ -137,7 +141,7 @@
       //console.log($slideNum)
       var $m = ($slideNum===1)?0:($slideNum-1)
         , $newMargin = -( $m * $('.js-tc-hero-wrapper').width())
-      $touchReel.stop().animate({'margin-left' : $newMargin}, $transitionDuration, $easing)
+      $tcReel.stop().animate({'margin-left' : $newMargin}, $transitionDuration, $easing)
     }
 
     //
@@ -217,28 +221,73 @@
 
     *****************/
 
-    // HOVER
-    $('.js-tc-tab').hover(function(){
-      clearTimeout($timeOut)
-      $this.goToSlide($(this).data('slide'))
+    // HOVER TABS
+    if(settings.hoverActive){
+      $('.js-tc-tab, .js-tc-hero-item').hover(function(){
+
+        if(settings.tabsHoverPause){
+          clearTimeout($timeOut)
+          $this.goToSlide($(this).data('slide'))
 
 
-      //Update slide states
-      $currentSlide = $(this).data('slide')
-      if ( ($currentSlide+1) > $numArticles ){ // Has carousel reached the end?
-        $nextSlide = 1 // Reset carousel
-      }else{
-        $nextSlide = $currentSlide + 1
-      }
+          //Update slide states
+          $currentSlide = $(this).data('slide')
+          if ( ($currentSlide+1) > $numArticles ){ // Has carousel reached the end?
+            $nextSlide = 1 // Reset carousel
+          }else{
+            $nextSlide = $currentSlide + 1
+          }
 
-      $isPaused = true
-      $(this).find('.js-reel-timer-overlay').removeClass('animating').addClass('full')
+          $isPaused = true
+          $('.js-tc-tab[data-slide="'+$currentSlide+'"]').find('.js-reel-timer-overlay').removeClass('animating').addClass('full')
 
-    }, function(){
-      $isPaused = false
-      $(this).find('.full').removeClass('full').width(0).addClass('animating')
-      $timeOut = setTimeout($this.nextSlide, $slideDuration)
-    })
+        }
+        
+      }, function(){
+        if(settings.tabsHoverPause){
+          $isPaused = false
+          $('.js-tc-tab[data-slide="'+$currentSlide+'"]').find('.full').removeClass('full').width(0).addClass('animating')
+          $timeOut = setTimeout($this.nextSlide, $slideDuration)
+        }
+
+      })
+      // HOVER HERO
+      $('.js-tc-hero-item').hover(function(){
+
+        if(settings.heroHoverPause){
+
+          $tcPauseIcon.stop().fadeIn('fast')
+
+          clearTimeout($timeOut)
+          $this.goToSlide($(this).data('slide'))
+
+
+          //Update slide states
+          $currentSlide = $(this).data('slide')
+          if ( ($currentSlide+1) > $numArticles ){ // Has carousel reached the end?
+            $nextSlide = 1 // Reset carousel
+          }else{
+            $nextSlide = $currentSlide + 1
+          }
+
+          $isPaused = true
+          $('.js-tc-tab[data-slide="'+$currentSlide+'"]').find('.js-reel-timer-overlay').removeClass('animating').addClass('full')
+
+        }
+        
+      }, function(){
+
+        if(settings.heroHoverPause){
+
+          $tcPauseIcon.stop().fadeOut('fast')
+
+          $isPaused = false
+          $('.js-tc-tab[data-slide="'+$currentSlide+'"]').find('.full').removeClass('full').width(0).addClass('animating')
+          $timeOut = setTimeout($this.nextSlide, $slideDuration)
+        }
+
+      })
+    } // END OF settings.hoverActive
 
 
 
@@ -265,6 +314,17 @@
     })
 
 
+    /*
+      KEYBOARD
+      EVENTS
+    */
+    $(document.documentElement).keyup(function (event) {
+      if (event.keyCode == 37) {
+        $this.prevSlide()
+      } else if (event.keyCode == 39) {
+        $this.nextSlide()
+      }
+    })
 
 
 
@@ -289,10 +349,10 @@
       , $falseSwipe = false
       , $moving = false
 
-    $touchReel.on('touchstart', function(e){
+    $tcReel.on('touchstart', function(e){
       $isPaused = true
 
-      $initialPosition = $touchReel.css('margin-left')
+      $initialPosition = $tcReel.css('margin-left')
 
       $initialX = e.originalEvent.touches[0].pageX
       $initialY = e.originalEvent.touches[0].pageY
@@ -312,17 +372,17 @@
           $changeX = $currentX - $initialX
           $marginLeftMove = parseInt($initialPosition,10) + $changeX
 
-          $heroMargin = parseInt($touchReel.css('margin-left'),10)
+          $heroMargin = parseInt($tcReel.css('margin-left'),10)
 
           if( $heroMargin >= 0 ){
             // Carousel is left of first item
-            $touchReel.css({'margin-left': $marginLeftMove * 0.2 })
+            $tcReel.css({'margin-left': $marginLeftMove * 0.2 })
           }else if( $heroMargin <= -($('.js-tc-hero-wrapper').width()*3) ){
             // Carousel is right of last item
 
-            $touchReel.css({'margin-left': parseInt($initialPosition,10) + ($changeX*0.2) })
+            $tcReel.css({'margin-left': parseInt($initialPosition,10) + ($changeX*0.2) })
           }else{
-            $touchReel.css({'margin-left': $marginLeftMove })
+            $tcReel.css({'margin-left': $marginLeftMove })
           }
 
           // add active state
@@ -349,7 +409,7 @@
         $isPaused = false
 
         if(Math.abs($changeX) < 20 || $falseSwipe === true){
-          $touchReel.animate({'margin-left': $initialPosition})
+          $tcReel.animate({'margin-left': $initialPosition})
           $falseSwipe = false
           //console.log('null swipe')
         }else{

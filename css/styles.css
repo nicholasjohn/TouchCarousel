@@ -13,10 +13,24 @@
 .tc-hero-wrapper {
   float: left;
   width: 100%;
+  position: relative;
 }
 .tc-hero-reel {
   margin-left: 0;
 }
+  .tc-hero-pause-icon {
+    font-weight: bold;
+    height: 36px;
+    font-size: 50px;
+    overflow: hidden;
+    position: absolute;
+    z-index: 2;
+    color: white;
+    right: 10px;
+    top: 5px;
+    font-weight: bold;
+    display: none;
+  }
   .tc-hero-item {
     position: relative;
     float: left;
