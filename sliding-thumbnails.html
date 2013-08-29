@@ -1,0 +1,135 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html class="ie ie6 ie-lt10 ie-lt9 ie-lt8 ie-lt7 no-js" lang="en-US"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie ie7 ie-lt10 ie-lt9 ie-lt8 no-js" lang="en-US"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie ie8 ie-lt10 ie-lt9 no-js" lang="en-US"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie ie9 ie-lt10 no-js" lang="en-US"> <![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="en-US"><!--<![endif]-->
+<head>
+
+  <meta charset="UTF-8">
+
+  <!--[if IE ]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <![endif]-->
+
+  <title>Hero Carousel - Built by students.</title>
+
+  <meta name="title" content="Landform Studios | Built by students.">
+  <meta name="description" content="Built by students." />
+  <meta name="author" content="Nick Price" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="css/styles.css" />
+  <link rel="stylesheet" type="text/css" href="css/custom.css" />
+  <!--[if IE ]>
+    <link rel="stylesheet" type="text/css" href="styles-ie.css" />
+  <![endif]-->
+
+</head>
+<body>
+
+<!-- Presentational outer wrapper -->
+<div class="container">
+
+
+
+  <!-- Carousel wrapper -->
+  <div class='tc-tabs'>
+
+    <!--  Tab #1 -->
+    <article class='tc-tab'>
+      <a href='#'>
+        <img src='http://dummyimage.com/300x180' alt='Image Description' data-carousel='http://dummyimage.com/1200x373/999/fff/&text=Hero 1'>
+        <h3 class='tc-hero-only'>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</h3>
+        <p class='tc-tab-only'>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</p>
+      </a>
+    </article>
+
+    <!--  Tab #2 -->
+    <article class='tc-tab'>
+      <a href='#'>
+        <img src='http://dummyimage.com/300x180' alt='Image Description' data-carousel='http://dummyimage.com/1200x373/74E24C/fff/&text=Hero 2'>
+        <h3 class='tc-hero-only'>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</h3>
+        <p class='tc-tab-only'>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</p>
+      </a>
+    </article>
+
+    <!--  Tab #3 -->
+    <article class='tc-tab'>
+      <a href='#'>
+        <img src='http://dummyimage.com/300x180' alt='Image Description' data-carousel='http://dummyimage.com/1200x373/F15501/fff/&text=Hero 3'>
+        <h3 class='tc-hero-only'>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</h3>
+        <p class='tc-tab-only'>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</p>
+      </a>
+    </article>
+
+    <!--  Tab #2 -->
+    <article class='tc-tab'>
+      <a href='#'>
+        <img src='http://dummyimage.com/300x180' alt='Image Description' data-carousel='http://dummyimage.com/1200x373/74E24C/fff/&text=Hero 4'>
+        <h3 class='tc-hero-only'>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</h3>
+        <p class='tc-tab-only'>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</p>
+      </a>
+    </article>
+
+    <!--  Tab #3 -->
+    <article class='tc-tab'>
+      <a href='#'>
+        <img src='http://dummyimage.com/300x180' alt='Image Description' data-carousel='http://dummyimage.com/1200x373/F15501/fff/&text=Hero 5'>
+        <h3 class='tc-hero-only'>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</h3>
+        <p class='tc-tab-only'>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</p>
+      </a>
+    </article>
+
+    <!--  Tab #2 -->
+    <article class='tc-tab'>
+      <a href='#'>
+        <img src='http://dummyimage.com/300x180' alt='Image Description' data-carousel='http://dummyimage.com/1200x373/74E24C/fff/&text=Hero 6'>
+        <h3 class='tc-hero-only'>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</h3>
+        <p class='tc-tab-only'>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</p>
+      </a>
+    </article>
+
+    <!--  Tab #3 -->
+    <article class='tc-tab'>
+      <a href='#'>
+        <img src='http://dummyimage.com/300x180' alt='Image Description' data-carousel='http://dummyimage.com/1200x373/F15501/fff/&text=Hero 7'>
+        <h3 class='tc-hero-only'>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</h3>
+        <p class='tc-tab-only'>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</p>
+      </a>
+    </article>
+
+    <!--  Tab #3 -->
+    <article class='tc-tab'>
+      <a href='#'>
+        <img src='http://dummyimage.com/300x180' alt='Image Description' data-carousel='http://dummyimage.com/1200x373/000000/fff/&text=Hero 8'>
+        <h3 class='tc-hero-only'>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</h3>
+        <p class='tc-tab-only'>Lorem ipsum dolor sit amet, cons ectetur adipiscing.</p>
+      </a>
+    </article>
+
+  </div><!-- END OF .tc-carousel -->
+
+
+
+</div><!-- END OF .container -->
+
+<script src='http://code.jquery.com/jquery.min.js'></script>
+<script src='js/touch-carousel.js'></script>
+<script>
+  var touchCarousel = $('.tc-tabs').touchCarousel(
+    {
+      slideDuration: 4000 // In milliseconds
+    , transitionDuration: 250 // In milliseconds
+    , easing: 'swing' // 'swing' or 'linear'
+    , width: '100%' // Width in pixels
+    , showTimers: false
+    , visibleTabs: 3
+    , onTimer: 'tabs'
+    }
+  )
+</script>
+
+</body>
+</html>

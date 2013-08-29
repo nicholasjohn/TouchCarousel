@@ -14,6 +14,7 @@
   float: left;
   width: 100%;
   position: relative;
+  overflow: hidden;
 }
 .tc-hero-reel {
   margin-left: 0;
@@ -45,9 +46,10 @@
 .tc-tabs {
   clear: both;
   float: left;
-  width: 100%;
+  width: 10000%;
   padding: 0;
   margin: 0;
+  overflow: hidden;
 }
   .tc-tab {
     float: left;
@@ -68,7 +70,7 @@
       width: auto;
       max-width: 100%;
     }
-  
+
 .reel-timer {
   width: 100%;
   background: #aaa;
