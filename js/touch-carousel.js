@@ -26,6 +26,7 @@
       , visibleTabs: false
       , highlightTabs: true
       , onTimer: 'hero'
+      , directionKeys: true
       }
     , options )
 
@@ -76,38 +77,31 @@
     *****************/
     $('.tc-tab').each(function(i,v){
 
-      $(this).css('width', Math.floor( ($tcRoot.width() - parseInt($(this).css('margin-left'),10) - parseInt($(this).css('margin-right'),10) ) / $visibleTabs) )
+      var $thisTab = $(this)
 
-      var $tcMain = $(this).children().clone()
+      $thisTab.css('width', Math.floor( ($tcRoot.width() - parseInt($(this).css('margin-left'),10) - parseInt($(this).css('margin-right'),10) ) / $visibleTabs) )
+
+      var $tcMain = $thisTab.children().clone()
 
       // Strip redundant DOM nodes
       $tcMain.find('.tc-tab-only').remove()
-      $(this).find('.tc-hero-only').remove()
+      $thisTab.find('.tc-hero-only').remove()
 
-      // Replace <img>@src with @data-carousel
       // (if statement is for .tc-tab <img> tags)
       if ($tcMain.data('carousel') !== 'undefined'){
         $tcMain.attr('src', $tcMain.data('carousel'))
       }
+      // Replace <img>@src with @data-carousel
       $tcMain.find('img[data-carousel]').each(function() {
         $(this).attr('src', $(this).data('carousel'))
       })
-
 
       // Create new hero item
       var $heroItem = $('<div>').width($width).addClass('tc-hero-item js-tc-hero-item').addClass('js-tc-tab').attr('data-slide',(i+1)).append($tcMain) // New hero item
       // Add hero item
       $tcReel.append($heroItem)
 
-      // Timers
-      var $timerOverlay = $('<div>').addClass('reel-timer-overlay js-reel-timer-overlay')
-        , $timerDiv = $('<div>').addClass('reel-timer').append($timerOverlay)
-      $(this).addClass('js-tc-tab').attr('data-slide',(i+1))
-      if (settings.showTimers) $(this).prepend($timerDiv)
-
-
-      // Settings > show tabs
-      if (!settings.showTabs) $(this).hide()
+      $thisTab.addClass('js-tc-tab').attr('data-slide',(i+1))
     })
 
 
@@ -174,14 +168,8 @@
 
     // This function calls a slide to be moved to
     this.goToSlide = function goToSlide($slideNum){
-      //console.log('goToSlide('+$slideNum+') called')
-
       $('.tc-tab.active').removeClass('active')
-      $('.animating').removeClass('animating')
-      $('.tc-tab[data-slide="'+$slideNum+'"]').addClass('active').find('.js-reel-timer-overlay').addClass('animating')
-      //.css({'-webkit-transition-duration':$slideDuration+'ms'})
       this.updateMargin($slideNum)
-
     }
 
 
@@ -294,14 +282,12 @@
           }
 
           $isPaused = true
-          $('.js-tc-tab[data-slide="'+$currentSlide+'"]').find('.js-reel-timer-overlay').removeClass('animating').addClass('full')
 
         }
 
       }, function() {
         if (settings.tabsHoverPause){
           $isPaused = false
-          $('.js-tc-tab[data-slide="'+$currentSlide+'"]').find('.full').removeClass('full').width(0).addClass('animating')
           $timeOut = setTimeout($this.slideTabs, $slideDuration)
         }
 
@@ -318,32 +304,21 @@
       RESPONSIVE
       FUNCTIONS
     */
-    $(window)
-    .on('resize', function() {
-
-      if( $(window).width() < 740 ) {
+    $(window).on('resize load', function () {
+      if ( $(window).width() < 740 ) {
         $visibleTabs = 4
       } else {
         $visibleTabs = 3
       }
-
-      if (settings.width == '100%'){
-        $tcRoot.css('width','100%')
-        $width = $tcRoot.width()
-      }else{
-        $width = parseInt($width,10) // Strip units should the user enter 'px'
-        $tcRoot.width($width)
-      }
-      $('.js-tc-hero-reel').width($numArticles*$width)
-      $this.updateMargin($currentSlide)
+      $this.updateMargin()
     })
 
 
     // Arrows are clicked
-    $arrowLeft.on('click', function () {
+    $arrowLeft.on('click touchend', function () {
       $this.slideTabs('left')
     })
-    $arrowRight.on('click', function () {
+    $arrowRight.on('click touchend', function () {
       $this.slideTabs('right')
     })
 
@@ -352,14 +327,17 @@
       KEYBOARD
       EVENTS
     */
-    $(document.documentElement).keyup(function (event) {
-      if (event.keyCode == 37) {
-        $this.slideTabs('left')
-      } else if (event.keyCode == 39) {
-        $this.slideTabs()
-      }
-    })
+    if (settings.directionKeys === true) {
+      $(document.documentElement).keyup(function (event) {
+        if (event.keyCode == 37) {
+          $this.slideTabs('left')
+        } else if (event.keyCode == 39) {
+          $this.slideTabs()
+        }
+      })
+    }
 
+    // Initialise
     return this.init()
 
 
