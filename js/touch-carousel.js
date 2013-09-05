@@ -159,8 +159,12 @@
       $tcReel.stop().animate({'margin-left' : $newMargin}, $transitionDuration, $easing)
 
       // Resize tabs
-      $('.tc-tab').css('width', Math.floor( ($tcRoot.width() - parseInt($('.tc-tab:first-child').css('margin-left'),10) - parseInt($('.tc-tab:first-child').css('margin-right'),10) ) / $visibleTabs) )
+      var $marginsMultiplyNumMinusOne = ( parseInt( $('.tc-tab:first-child').css('margin-left'),10) + parseInt( $('.tc-tab:first-child').css('margin-right'),10) ) * ( $visibleTabs - 1)
+      var $newWidth = Math.floor( ($tcRoot.width() - $marginsMultiplyNumMinusOne ) / $visibleTabs )
+      $('.tc-tab').css('width', $newWidth )
+
       var $slideAmount = Math.floor( $('.tc-tab:first-child').width() + parseInt($('.tc-tab:first-child').css('margin-left'), 10) + parseInt($('.tc-tab:first-child').css('margin-right'), 10) ) * $currentTab
+
       $('.tc-tabs').stop().animate({'margin-left':  $slideAmount+'px'}, $transitionDuration)
 
     }
@@ -180,21 +184,25 @@
     // and vice-verca with the end
     this.slideTabs = function slideTabs(direction) {
 
-      clearTimeout($timeOut)
+      if(!$isPaused){
 
-      if (direction === 'left' || direction === 'undefined') {
-        // Tabs moving left - check for end of row
-        $currentTab++
-        if ($currentTab === 1) $currentTab = -($numArticles - $visibleTabs)
-      }else{
-        // Tabs moving right - check for end of row
-        $currentTab--
-        if ($currentTab === -($numArticles - $visibleTabs + 1)) $currentTab = 0
+        clearTimeout($timeOut)
+
+        if (direction === 'left' || direction === 'undefined') {
+          // Tabs moving left - check for end of row
+          $currentTab++
+          if ($currentTab === 1) $currentTab = -($numArticles - $visibleTabs)
+        }else{
+          // Tabs moving right - check for end of row
+          $currentTab--
+          if ($currentTab === -($numArticles - $visibleTabs + 1)) $currentTab = 0
+        }
+
+        var $slideAmount = Math.floor( $('.tc-tab:first-child').width() + parseInt($('.tc-tab:first-child').css('margin-left'), 10) + parseInt($('.tc-tab:first-child').css('margin-right'), 10) ) * $currentTab
+        $('.tc-tabs').stop().animate({'margin-left':  $slideAmount+'px'}, $transitionDuration)
+        $timeOut = setTimeout($this.slideTabs, $slideDuration)
+
       }
-
-      var $slideAmount = Math.floor( $('.tc-tab:first-child').width() + parseInt($('.tc-tab:first-child').css('margin-left'), 10) + parseInt($('.tc-tab:first-child').css('margin-right'), 10) ) * $currentTab
-      $('.tc-tabs').stop().animate({'margin-left':  $slideAmount+'px'}, $transitionDuration)
-      $timeOut = setTimeout($this.slideTabs, $slideDuration)
 
     }
 
@@ -315,10 +323,10 @@
 
 
     // Arrows are clicked
-    $arrowLeft.on('click touchend', function () {
+    $arrowLeft.on('click', function () {
       $this.slideTabs('left')
     })
-    $arrowRight.on('click touchend', function () {
+    $arrowRight.on('click', function () {
       $this.slideTabs('right')
     })
 
@@ -336,6 +344,106 @@
         }
       })
     }
+
+
+
+
+    /*
+      TOUCH
+      EVENTS
+    */
+
+    var $initialX
+      , $initialY
+      , $currentX
+      , $currentY
+      , $changeX
+      , $initialMargin
+      , $marginLeftMove
+      , $falseSwipe = false
+      , $moving = false
+
+    $('.tc-tabs').on('touchstart', function(e){
+      $isPaused = true
+
+      $initialMargin = $('.tc-tabs').css('margin-left')
+      $initialX = e.originalEvent.touches[0].pageX
+      $initialY = e.originalEvent.touches[0].pageY
+
+
+      // Touch move
+      $(this).on( 'touchmove', function(e){
+
+        $currentX = e.originalEvent.touches[0].pageX
+        $currentY = e.originalEvent.touches[0].pageY
+
+        if (Math.abs($currentX - $initialX) >
+            Math.abs($currentY - $initialY) || $moving === true) {
+          // A horizontal movement, so add the touchmove handler
+          e.preventDefault()
+          $moving = true
+          $changeX = $currentX - $initialX
+          $marginLeftMove = parseInt($initialMargin,10) + $changeX
+
+          $tabsMargin = parseInt($('.tc-tabs').css('margin-left'),10)
+
+          if( $tabsMargin >= 0 ){
+            // Carousel is left of first item
+            $('.tc-tabs').css({'margin-left': $marginLeftMove * 0.2 })
+          }else if( $tabsMargin <= -($('.js-tc-hero-wrapper').width()*3) ){
+            // Carousel is right of last item
+
+            $('.tc-tabs').css({'margin-left': parseInt($initialMargin,10) + ($changeX*0.2) })
+          }else{
+            $('.tc-tabs').css({'margin-left': $marginLeftMove })
+          }
+
+        } else {
+          // A vertical movement, so let the
+          // device scroll the document
+          $(this).off('touchend')
+          $(this).off('touchmove')
+          $falseSwipe = true
+        }
+
+
+      })
+      // Touch end
+      $(this).on('touchend', function(e){
+        $moving = false
+        $(this).off('touchend')
+        $(this).off('touchmove')
+
+
+        var $currentMargin = parseInt($('.tc-tabs').css('margin-left'),10)
+          , $tabWidth = $('.tc-tab:first-child').width()
+          , $distanceToSnap = $currentMargin % ( $tabWidth + parseInt($('.tc-tab:first-child').css('margin-right'),10) )
+
+        if ($distanceToSnap > 0) {
+           $('.tc-tabs').animate({'margin-left': 0 }, 'fast')
+        } else if ( Math.abs($distanceToSnap) < Math.floor($tabWidth/2) ) {
+          $('.tc-tabs').animate({'margin-left': $currentMargin + Math.abs($distanceToSnap) }, 'fast')
+        } else {
+          $('.tc-tabs').animate({'margin-left': $currentMargin - ($tabWidth + $distanceToSnap) }, 'fast')
+        }
+
+        $this.updateMargin( Math.round(Math.abs($currentMargin) / $tabWidth) )
+
+        clearTimeout($timeOut)
+        $isPaused = false
+        $timeOut = setTimeout($this.slideTabs, $slideDuration)
+
+        $changeX = 0
+        $initialX = 0
+        $initialY = 0
+        $currentY = 0
+        $currentX = 0
+        $initialMargin = 0
+        $marginLeftMove = 0
+        $falseSwipe = false
+        $moving = false
+      })
+    })
 
     // Initialise
     return this.init()
