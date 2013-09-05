@@ -427,8 +427,6 @@
           $('.tc-tabs').animate({'margin-left': $currentMargin - ($tabWidth + $distanceToSnap) }, 'fast')
         }
 
-        $this.updateMargin( Math.round(Math.abs($currentMargin) / $tabWidth) )
-
         clearTimeout($timeOut)
         $isPaused = false
         $timeOut = setTimeout($this.slideTabs, $slideDuration)
